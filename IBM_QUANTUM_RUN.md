@@ -1,0 +1,37 @@
+# IBM Quantum hardware run: account and job record
+
+This file records how the hardware results in HARDWARE_RESULTS.md were produced, so the run is reproducible and auditable. The API key is intentionally not stored in this repository.
+
+## Account
+
+- Platform: IBM Quantum Platform (quantum.cloud.ibm.com), region us-east (Washington DC)
+- Account holder: Muntaser Syed; IBMid msyed2011@my.fit.edu (Florida Institute of Technology)
+- Account created 2026-11-08 for the Qiskit Fall Fest 2026 hackathon at Florida Tech
+- IBM Cloud account type: trial (dashboard showed 29 days remaining on 2026-11-08, so the trial wrapper runs to about 2026-12-07; the IBM Quantum Open plan itself is free)
+
+## Service instance
+
+- Name: qhashrope
+- Plan: Open (free), 10 minutes of QPU time per month
+- Instance ID: 699aa462-4483-4d9c-aaf5-b318050df08d
+- CRN: crn:v1:bluemix:public:quantum-computing:us-east:a/6d2362d566ad4491b79925a8aed1a30c:699aa462-4483-4d9c-aaf5-b318050df08d::
+- Access: API key named "qhashrope", created 2026-11-08; the key value is held only in the local Qiskit configuration of the machine that submitted the jobs, never in this repository
+
+## Accessible backends (2026-11-08)
+
+All 156-qubit Heron r2 devices, online, region us-east:
+
+- ibm_marrakesh (used for this run; fewest pending jobs at submission)
+- ibm_fez
+- ibm_kingston
+
+## Jobs submitted 2026-11-08 (SamplerV2, 4,096 shots per circuit)
+
+| Job ID | Content | Status |
+|---|---|---|
+| dbo8ukc4148s73924tfg | Pair A, identical DNA segments, 24 per-bit SWAP circuits | DONE, harvested |
+| dbo8ukgou4as73b5ml6g | Pair B, benzene vs cyclohexane, 24 per-bit SWAP circuits | DONE, harvested |
+| dbo8ul5t7fqc73ako2pg | Pair C, aspirin vs amide analog, 24 per-bit SWAP circuits | DONE, harvested |
+| dbo8uudt7fqc73ako33g | Exploratory monolithic 49-qubit SWAP circuit, pair A (transpiled depth about 1,026, 495 CZ) | QUEUED at last check 2026-11-08 15:56 UTC |
+
+Submission script: submit_hardware.py. Submission record: hardware_jobs.json. Results: HARDWARE_RESULTS.md and hardware_results.json. The queued monolithic job is harvested and analysed by retrieve_hardware_results.py, which updates HARDWARE_RESULTS.md when the job completes.

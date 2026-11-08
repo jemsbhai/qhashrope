@@ -1,6 +1,6 @@
 # Hardware run, 2026-11-08 (IBM Quantum, ibm_marrakesh)
 
-Backend: **ibm_marrakesh** (156 qubits). SamplerV2, 4096 shots per circuit. Submitted 2026-11-08T15:03:43.946118+00:00; job record in `hardware_jobs.json`. Decision rule identical to the simulation: per-bit P(0) decided differ below 0.75; Golay radius-3 recombination (equal iff decided-differ <= 3). Analysis by `retrieve_hardware_results.py`.
+Backend: **ibm_marrakesh** (156 qubits). SamplerV2, 4096 shots per circuit. Submitted 2026-11-08T15:03:43.946118+00:00; job record in `hardware_jobs.json`. Decision rule identical to the simulation: per-bit P(0) decided differ below 0.75; Golay radius-3 recombination (equal iff decided-differ <= 3). Analysis by `retrieve_hardware_results.py`. Account, instance, and full job record: `IBM_QUANTUM_RUN.md`.
 
 ## Per-bit two-server verification on hardware
 
