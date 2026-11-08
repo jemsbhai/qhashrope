@@ -25,3 +25,58 @@ AerSimulator (matrix_product_state), 4096 shots per pair, global threshold
 Accuracy: classical hashrope 12/12, quantum fingerprint 12/12. Distinct
 pairs sit at the analytic floor 0.5 regardless of substitution count,
 because any message difference flips at least 8 of the 24 encoded bits.
+
+## Strengthened analysis, 2026-11-08
+
+**Scale.** A human genome is about 3.2 billion bases. One 30x
+whole-genome run produces raw instrument output on the order of 100 GB,
+and even the aligned, compressed form is tens of GB per donor. Reference
+collections operate at matching scale: public variant archives hold
+millions of submitted variant records, and population biobanks hold
+sequence data for hundreds of thousands of donors. Any identity check
+that moves the sequence itself moves gigabytes per question; the
+fingerprint moves 24 qubits per question, independent of record size.
+That asymmetry, not raw speed, is the quantified form of the problem.
+
+**Protocol mapping.** The fingerprinted string is the canonical
+sequence record under comparison (in the demo, a 96 bp segment; in
+deployment, the agreed locus or record serialization). Party A is the
+holding site (clinic or biobank) with its copy; Party B is the second
+site with the record it wants to check against. In the single-referee
+form, both send their 24-qubit fingerprints to a referee, who runs the
+SWAP test and returns one bit. In the two-server variant, the 24 per-bit
+SWAP tests are split across two non-colluding referees (each runs a
+disjoint subset of the 3-qubit tests), the referees return per-bit
+estimates, and the client recombines them by the Golay radius-3 rule:
+equal iff at most 3 of 24 bits are decided differ. Measured at root
+level under depolarizing noise p = 0.02 (RESULTS.md, two-server
+section): 13/13 pairs correct with zero bit-decision errors in 312 bit
+tests, identical pairs at 0 decided-differ bits and distinct pairs at
+8 to 16, where the monolithic circuit failed all 5 identical pairs
+(0.7244 to 0.7402 against the 0.75 threshold). Neither referee sees a
+sequence, a hash of a sequence, or the other party's record; each sees
+only fingerprint qubits for its assigned bit positions.
+
+**Classical baseline boundary.** If the two sites may exchange a
+classical hash over an authenticated channel and both accept a plain
+comparison, a classical hash (or the hashrope check itself, which is
+exact) solves this problem completely, at negligible cost, today. The
+quantum construction earns its place only in the constrained setting:
+the simultaneous-message model, where each party may send only a short
+fingerprint to a referee and the parties share no randomness (there,
+classical fingerprints need on the order of sqrt(n) bits against
+O(log n) qubits), and where the disclosure budget is the equality bit
+and nothing else. Outside that setting this case is a communication
+result applied to genomics, not a claim that the quantum check is the
+cheaper tool.
+
+**Next steps.** (1) Longer records: the current fold compresses any
+input to a 12-bit message, so chromosome-scale records need a blocked
+multi-fingerprint form with a fold-collision probability sized to the
+number of comparisons, not 2^-12. (2) Canonicalization of variant
+representations before fingerprinting (the same variant has several
+valid serializations; equality is over bytes). (3) The two-server
+variant on hardware: the per-bit circuits are 3 qubits and shallow, so
+they are the natural first hardware target. (4) A defined referee
+non-collusion arrangement for the clinic and biobank setting, since the
+privacy reading depends on it.

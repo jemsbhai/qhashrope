@@ -25,3 +25,61 @@ third-decimal change is a single character in one block; under the fixed
 encoding that suffices to move the pair to the analytic floor 0.5 (under
 the pre-fix encoding, the analogous one-character change in the aspirin
 pair scored 0.9839; see molecular-identity).
+
+## Strengthened analysis, 2026-11-08
+
+**Scale.** The record sizes span orders of magnitude depending on what
+counts as the result. A log-file summary block (method, energy,
+geometry) is kilobytes, as in the demo. A formatted checkpoint with
+density and wavefunction data for a mid-size molecule in a triple-zeta
+basis is megabytes to gigabytes; integral and wavefunction files for
+large-basis correlated calculations reach tens of gigabytes. The
+verification question is asked at cluster scale: the same job rerun on
+a second machine, a collaborator's cluster, or a different code
+version, where shipping the full artifact for a byte comparison is the
+cost the fingerprint avoids (24 qubits, independent of artifact size).
+
+**Protocol mapping.** The fingerprinted string is the canonicalized
+result record: in the demo, the method header plus geometry block; in
+deployment, whatever serialization the canonicalization layer (below)
+reduces the artifact to. Party A is the producer of the original
+result; Party B is the rerun site (a second cluster, a collaborator, a
+reproducibility service). Both fingerprint locally; a referee's SWAP
+test returns the equality bit. Neither side transfers the artifact, and
+the referee sees neither artifact, only fingerprints. In the
+two-server variant the 24 per-bit tests split across two non-colluding
+referees with Golay radius-3 recombination by the client. Measured at
+root level under depolarizing noise p = 0.02: 13/13 correct, zero
+bit-decision errors in 312 tests, identical pairs at 0 decided-differ
+bits and distinct at 8 to 16, against monolithic identical-pair
+failures at 0.7244 to 0.7402. For this case the noise point is not
+academic: a rerun-verification service is exactly the setting where
+the checker may be a noisy near-term device, and a checker that calls
+identical results different (the monolithic failure mode) is worse
+than no checker.
+
+**Classical baseline boundary.** Between two clusters that can
+exchange files or hashes freely, this is a solved classical problem:
+hash the canonicalized record on both sides and compare, exactly, with
+the hashrope stage as that solution. The quantum construction is for
+the narrower setting where the artifact itself is export-controlled,
+proprietary, or simply too large to move for a check, and the parties
+share no randomness and delegate the decision to a referee who may
+learn only the equality bit: the simultaneous-message regime where
+classical fingerprinting costs on the order of sqrt(n) bits against
+O(log n) qubits. Most in-house rerun checking does not live in that
+regime and should use hashes; cross-institution verification of
+restricted calculations is the honest target.
+
+**Next steps.** (1) The canonicalization layer is the real work:
+reduce a result record to its scientifically meaningful content
+(sorted geometry at stated precision, final energies at stated
+rounding, method and basis identifiers) so that byte equality tracks
+scientific agreement instead of formatting. This is a chemistry
+judgment per code and per artifact type, and it decides whether the
+protocol is usable at all. (2) Ingestion of real checkpoint formats
+rather than hand-written records. (3) A precision policy: the
+third-decimal coordinate change in the demo reads as different, which
+is correct for exact equality; a deployment must state the rounding at
+which two results count as the same result, in the record format
+itself. (4) Hardware run of the per-bit two-server form.

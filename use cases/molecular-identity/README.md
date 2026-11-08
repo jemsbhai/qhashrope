@@ -59,3 +59,61 @@ step); two different strings whose folded messages collide (probability
 2^-12 for a random distinct pair) remain indistinguishable to the
 fingerprint, the standard fingerprint caveat; and these are simulator
 numbers, not hardware numbers.
+
+## Strengthened analysis, 2026-11-08
+
+**Scale.** The record is small and the library is not. A canonical
+SMILES string is tens of bytes; an InChI runs to a few hundred. The
+libraries those records index are the large objects: public collections
+hold over 100 million compound records (PubChem) and over 2 million
+curated bioactive compounds (ChEMBL), and regulatory inventories list
+tens of thousands of registered industrial substances. A QC or registry
+check is one record against one reference entry, repeated at every site
+that handles the substance, against libraries that are licensed,
+export-controlled, or too large to mirror everywhere. The cost being
+avoided is distributing and trusting copies of the library, not
+comparing the strings, which is why the protocol is shaped around
+sending a 24-qubit fingerprint of the one record instead.
+
+**Protocol mapping.** The fingerprinted string is the canonical
+structure string for the compound (SMILES in the demo; InChI is the
+other natural choice, and the choice must be fixed per registry). Party
+A is the checking site (QC lab, satellite lab, distributor) holding its
+record for the batch or sample; Party B is the registry or reference
+holder with the master record. In the single-referee form both send
+fingerprints to a referee whose SWAP test returns the one bit. In the
+two-server variant, two non-colluding referees each run a disjoint
+subset of the 24 per-bit SWAP tests and return per-bit estimates; the
+client applies the Golay radius-3 rule (equal iff at most 3 bits
+decided differ). Measured at root level under depolarizing noise
+p = 0.02: 13/13 correct, zero bit-decision errors in 312 tests,
+identical pairs at 0 decided-differ bits, distinct pairs at 8 to 16,
+against a monolithic circuit that failed all 5 identical pairs
+(0.7244 to 0.7402 vs threshold 0.75). The aspirin and benzene pairs in
+this folder were part of that 13-pair set and classified correctly in
+both circuit forms' decision rules that matter here: noiseless
+monolithic 5/5, two-server per-bit 13/13 overall.
+
+**Classical baseline boundary.** Plainly: for a single check between
+two sites that can talk to each other, comparing classical hashes of
+the canonical strings solves this completely and exactly, and the
+hashrope stage in this folder is that solution. The fingerprint
+protocol adds something only where the setting forbids the plain
+solution: a referee who must decide without either side revealing its
+record to the other or to the referee beyond the equality bit, in the
+simultaneous-message model with no shared randomness (the regime where
+the classical fingerprint lower bound is on the order of sqrt(n) bits
+and the quantum one is O(log n) qubits). A registry that is happy to
+receive hashes does not need this; a registry whose records may not be
+exposed to the checkers, and checkers whose holdings may not be exposed
+to the registry, is the setting the construction addresses.
+
+**Next steps.** (1) Fix the canonicalization contract per registry:
+tautomer and salt handling decided before fingerprinting, since the
+protocol compares bytes. (2) Batch mode for registry-scale checking
+(many records per site), which raises the same candidate-generation
+question as the dedup case when both sides hold sets. (3) Widen the
+message fold for production use; 2^-12 per-pair collision probability
+is a demo parameter, not a registry parameter. (4) Hardware run of the
+per-bit two-server form, whose 3-qubit circuits are the realistic
+near-term target.
