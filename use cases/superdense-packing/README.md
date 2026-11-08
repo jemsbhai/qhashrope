@@ -7,3 +7,19 @@
 **Prototype status.** Demonstrated in simulation: 20 trials of 8-bit messages, accuracy 1.00, holding at 1.00 under depolarizing noise p=0.01 and p=0.05. This is the most forward-looking case in the folder; entanglement distribution and storage at useful scales are open engineering problems, and the case is framed as a research direction, not a near-term product.
 
 **Known limitation.** The 2x density is real but conditional on pre-shared entanglement surviving until the send window. Decoherence during storage is the binding constraint.
+
+## Measured results (2026-11-08)
+
+Demo: `packing_demo.py`; data: `results.json`. Settings: 20 trials per
+condition, 8-bit payloads on 4 transmitted qubits (4 pre-shared Bell
+pairs), 1024 shots per trial, AerSimulator with the stated noise model.
+
+| Condition | Message accuracy | Bit accuracy |
+|---|---|---|
+| noiseless | 1.00 | 1.0000 |
+| depolarizing p=0.01 | 1.00 | 1.0000 |
+| depolarizing p=0.05 | 1.00 | 1.0000 |
+
+The pack stage is unchanged by the 2026-11-08 fingerprint fix (the fix
+concerns the verify stage); these are fresh runs of the same protocol
+reported in the root RESULTS.md.

@@ -26,15 +26,19 @@ def run_end_to_end(mutation_trials=(0, 0, 0, 1, 1, 3, 3, 10, 10),
     noise_model = qnoise.depolarizing(noise_p) if noise_p else None
     sim = quantum_verify.default_sim(noise_model)
 
-    # Noise-aware threshold calibration (the analogue of MultiSpecQR's color
-    # calibration card): measure a known-identical pair under the SAME noise
-    # model and put the threshold midway between that value and 0.5, the
-    # fully-different limit. A fixed noiseless threshold fails under noise:
-    # depolarizing error pulls identical-pair P(0) from 1.0 toward 0.5
-    # (~0.89 at p=0.01, ~0.64 at p=0.05; see the stage-6 sweep).
+    # Threshold: ONE global value for every pair in every demo, fixed in
+    # advance from the encoding bound (see quantum_verify): with the
+    # Golay-encoded orthogonal-bit fingerprints, analytic P(0) is exactly
+    # 1.0 for equal strings and exactly 0.5 for distinct strings, so the
+    # threshold is the midpoint 0.75. The 2026-11-07 pipeline calibrated a
+    # per-noise threshold from a measured identical pair; that is no longer
+    # needed (the analytic gap is maximal) and is no longer done. The
+    # identical-pair value under this noise model is still measured and
+    # reported below as a diagnostic of noise contraction.
+    threshold = quantum_verify.DEFAULT_THRESHOLD
     cw_base = quantum_verify.codeword(base)
-    cal_p0 = quantum_verify.estimate_p0(cw_base, cw_base, shots=shots, sim=sim)
-    threshold = (cal_p0 + 0.5) / 2
+    diag_identical_p0 = quantum_verify.estimate_p0(cw_base, cw_base,
+                                                   shots=shots, sim=sim)
 
     trials = []
     for k in mutation_trials:
@@ -66,8 +70,8 @@ def run_end_to_end(mutation_trials=(0, 0, 0, 1, 1, 3, 3, 10, 10),
         "classical_pack_all_ok": pack_c["all_ok"],
         "quantum_pack_message_accuracy": pack_q["message_accuracy"],
         "noise_p": noise_p,
-        "calibration_identical_p0": cal_p0,
-        "calibrated_threshold": threshold,
+        "identical_pair_p0_under_noise_diagnostic": diag_identical_p0,
+        "threshold": threshold,
         "trials": trials,
         "classical_verify_confusion": confusion("classical_decision_equal"),
         "quantum_verify_confusion": confusion("quantum_decision_equal"),

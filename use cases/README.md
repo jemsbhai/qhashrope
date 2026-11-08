@@ -1,6 +1,6 @@
 # Use cases
 
-Applications of the qhashrope pack-and-verify prototype, one folder each. Every case uses the same two primitives: superdense-coding packing (2 bits per transmitted qubit over shared Bell pairs) and quantum fingerprint verification (Ablayev-Vasiliev-style product-state fingerprints compared with a SWAP test).
+Applications of the qhashrope pack-and-verify prototype, one folder each. Every case uses the same two primitives: superdense-coding packing (2 bits per transmitted qubit over shared Bell pairs) and quantum fingerprint verification (Ablayev-Vasiliev-style fingerprints compared with a SWAP test). As of 2026-11-08 the fingerprint uses the fixed encoding (position-seeded block hashing, Golay (24,12,8) error-correcting expansion, one global decision threshold of 0.75); every folder carries a runnable demo and a `results.json` with measured values from that pipeline. See the "Encoding fix, 2026-11-08" section of the root RESULTS.md.
 
 1. [genomic-identity-verification](genomic-identity-verification/) - Private genomic identity verification: prove two sequence records match without revealing the sequence.
 2. [model-dataset-integrity](model-dataset-integrity/) - Model and dataset integrity attestation: prove a deployed artifact is bit-identical to the certified one.

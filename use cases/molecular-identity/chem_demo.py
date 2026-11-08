@@ -4,7 +4,9 @@ Runs the EXISTING qhashrope verifiers on canonical SMILES string pairs:
   - classical: hashrope exact equality (qhashrope.classical_verify)
   - quantum:   product-state fingerprints + SWAP test
                (qhashrope.quantum_verify), noiseless MPS simulator,
-               4096 shots, default threshold 0.85.
+               4096 shots, global threshold 0.75 (fixed encoding of
+               2026-11-08; the original run used the legacy encoding and
+               threshold 0.85).
 
 Payloads are plain byte strings (the fingerprint pipeline works on any
 string); here they are canonical SMILES for small, well-known compounds.
@@ -50,8 +52,10 @@ def main():
             "simulator": "AerSimulator, matrix_product_state, noiseless",
             "shots": SHOTS,
             "threshold": quantum_verify.DEFAULT_THRESHOLD,
-            "fingerprint": "12-block hashrope codeword, symbols mod 16, "
-                           "Ry(s * pi/8) product state, full SWAP test",
+            "fingerprint": "12 position-seeded block symbols (mod 4096), "
+                           "odd-weight fold to a 12-bit message, extended "
+                           "Golay (24,12,8) encoding, orthogonal bit states, "
+                           "full SWAP test",
         },
         "pairs": [],
     }

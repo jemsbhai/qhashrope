@@ -1,0 +1,20 @@
+{
+  "demo": "entanglement-assisted dense packing (superdense coding)",
+  "payload": "8 classical bits per trial on 4 transmitted qubits (4 pre-shared Bell pairs)",
+  "shots": 1024,
+  "trials_per_condition": 20,
+  "conditions": {
+    "noiseless": {
+      "message_accuracy": 1.0,
+      "bit_accuracy": 1.0
+    },
+    "depolarizing p=0.01": {
+      "message_accuracy": 1.0,
+      "bit_accuracy": 1.0
+    },
+    "depolarizing p=0.05": {
+      "message_accuracy": 1.0,
+      "bit_accuracy": 1.0
+    }
+  }
+}

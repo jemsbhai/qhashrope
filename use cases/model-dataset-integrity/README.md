@@ -7,3 +7,18 @@
 **Prototype status.** The verify primitive is demonstrated on byte-string payloads in simulation (18/18 sequence pairs classified correctly; 0.89 end-to-end accuracy under depolarizing noise p=0.02 after noise-calibrated thresholding). Applying it to real checkpoint files is an integration step, not a research step.
 
 **Known limitation.** Near-identical artifacts (a checkpoint differing in a few weights) sit near the decision threshold with the current encoding; the error-correcting fingerprint encoding is the planned fix.
+
+## Measured results (fixed encoding, 2026-11-08)
+
+Demo: `integrity_demo.py`; data: `results.json`. Settings: noiseless
+AerSimulator (matrix_product_state), 4096 shots per pair, global threshold
+0.75, Golay-encoded fingerprint as in the root RESULTS.md (2026-11-08
+section). Payload: synthetic checkpoint record strings (~3.2 KB).
+
+| Case | Bytes differing | Quantum P(0) | Decision |
+|---|---|---|---|
+| record vs itself | 0 | 1.0000 | equal |
+| copy with 3 bytes changed | 3 | 0.5073 | differ |
+| a different checkpoint | 2,720 | 0.4985 | differ |
+
+Classical hashrope agrees on all three pairs (3/3); quantum 3/3.

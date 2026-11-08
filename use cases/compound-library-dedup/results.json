@@ -1,0 +1,88 @@
+{
+  "demo": "compound library deduplication without disclosure",
+  "payload_type": "canonical SMILES strings",
+  "quantum": {
+    "simulator": "AerSimulator, matrix_product_state, noiseless",
+    "shots": 4096,
+    "threshold": 0.75,
+    "fingerprint": "Golay (24,12,8) encoded fingerprint, SWAP test"
+  },
+  "library_sizes": {
+    "A": 8,
+    "B": 8
+  },
+  "cross_pairs_compared": 64,
+  "planted_duplicates": [
+    "aspirin",
+    "benzene",
+    "caffeine",
+    "ethanol"
+  ],
+  "quantum_matches": [
+    "aspirin",
+    "benzene",
+    "caffeine",
+    "ethanol"
+  ],
+  "classical_matches": [
+    "aspirin",
+    "benzene",
+    "caffeine",
+    "ethanol"
+  ],
+  "quantum_exact_match_set": true,
+  "match_matrix": [
+    {
+      "a": "aspirin",
+      "matches": [
+        {
+          "b": "aspirin",
+          "estimated_p0": 1.0
+        }
+      ]
+    },
+    {
+      "a": "ibuprofen",
+      "matches": []
+    },
+    {
+      "a": "caffeine",
+      "matches": [
+        {
+          "b": "caffeine",
+          "estimated_p0": 1.0
+        }
+      ]
+    },
+    {
+      "a": "paracetamol",
+      "matches": []
+    },
+    {
+      "a": "benzene",
+      "matches": [
+        {
+          "b": "benzene",
+          "estimated_p0": 1.0
+        }
+      ]
+    },
+    {
+      "a": "toluene",
+      "matches": []
+    },
+    {
+      "a": "ethanol",
+      "matches": [
+        {
+          "b": "ethanol",
+          "estimated_p0": 1.0
+        }
+      ]
+    },
+    {
+      "a": "phenol",
+      "matches": []
+    }
+  ]
+}

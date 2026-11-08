@@ -162,3 +162,113 @@ cross-checked against the analytic values in `results.json`.
    on hardware sets the threshold) before classifying any pair.
 3. Optional: readout-error mitigation on the ancilla measurement; ECC
    (Reed–Solomon) codeword upgrade for the fingerprint stage.
+
+## Encoding fix, 2026-11-08
+
+Later on 2026-11-08, a chemistry demo (SMILES payloads, `use
+cases/molecular-identity/`) exposed two failures of the original
+fingerprint encoding, both measured, neither visible in the DNA tests
+above:
+
+1. **Codeword collision.** Benzene (`c1ccccc1`) and cyclohexane
+   (`C1CCCCC1`) produced byte-identical 12-symbol codewords and scored
+   P(0) = 1.0000, a false "equal" no threshold can fix. Both strings are 8
+   characters, so most of the 12 blocks are empty or hold one character,
+   and the unseeded per-block polynomial hashes coincided mod 16 on every
+   block.
+2. **No minimum distance.** Aspirin vs its one-character amide analog
+   scored P(0) = 0.9839 against an analytic 0.9810, a false "equal" at
+   the 0.85 threshold. The pair differed in exactly one codeword symbol,
+   by one step (14 to 13); with angle encoding `Ry(s * pi / 8)`, a
+   one-step symbol change leaves the fingerprint overlap at cos^2(pi/16)
+   in that coordinate.
+
+### The fix
+
+The fingerprint in `qhashrope/quantum_verify.py` was redesigned in three
+parts (the original encoding remains available behind a `legacy=True`
+flag, and the validation runs below use the new encoding throughout):
+
+- **Position-seeded block hashing, larger alphabet.** Each block's
+  hashrope fingerprint is mixed (splitmix64 finalizer) with its block
+  index and reduced mod 4096 instead of mod 16. Block content is hashed
+  together with its position, so sparse blocks of short strings no longer
+  coincide systematically. The map stays fully deterministic: identical
+  strings give identical fingerprints.
+- **Error-correcting expansion (Ablayev-Vasiliev).** The 12 symbols are
+  folded into one 12-bit message `m = sum_j (2j+1) * s_j + 25 * len
+  (mod 4096)`; every weight is odd, so any single-symbol change provably
+  changes `m`, as does any length change. The message is then encoded
+  with the extended binary Golay code (24,12,8) and each encoded bit is
+  prepared as an orthogonal qubit state (|0> or |1>) instead of an angle
+  step. Bound relied on: any two distinct messages have encoded Hamming
+  distance at least 8 (verified exhaustively over all 4096 codewords:
+  minimum nonzero weight 8), and their fingerprint states are supported
+  on disjoint computational-basis strings, so the overlap is exactly 0.
+  Identical strings keep overlap exactly 1.
+- **One global threshold, fixed in advance.** With overlap in {0, 1} by
+  construction, the SWAP-test probability P(0) = (1 + |<f|g>|^2) / 2
+  takes only the analytic values 1.0 (equal) and 0.5 (distinct). The
+  decision threshold is the midpoint, **0.75**, used for every pair in
+  every run and demo below. At 4096 shots the sampling deviation is
+  ~0.0078, so the threshold sits ~32 sampling deviations from both
+  analytic values. No per-pair calibration remains anywhere in the
+  pipeline (the old noise-stage self-calibration was removed for the
+  same reason).
+
+### New headline results (fixed encoding, same protocols as above)
+
+- Test suite: 8/8 pass, including new exhaustive checks of the Golay
+  minimum distance and of position seeding, and analytic separation of
+  all five chemistry pairs. One existing test was changed: the
+  maximally-different-pair test asserted the old encoding's angle
+  geometry and now asserts the fixed encoding's behavior (orthogonal
+  states, P(0) at the 0.5 floor).
+- Stage 2, superdense pack, noiseless: message accuracy 1.00 (unchanged
+  stage, re-run).
+- Stage 3, classical verify: 18/18.
+- Stage 4, quantum verify, noiseless: 18/18. Identical pairs measure
+  P(0) = 1.0000; distinct-pair class means are 0.5010 (1 substitution),
+  0.4993 (3), 0.5073 (10) - all at the analytic floor 0.5, independent of
+  mutation count, as the distance-8 bound requires.
+- Stage 5, noisy end-to-end (depolarizing p = 0.02 on every gate,
+  threshold 0.75, no calibration): 12/12 correct. The identical-pair
+  estimate under the same noise, kept as a diagnostic only, is 0.8730.
+- Stage 6, noise robustness: superdense message accuracy 1.00 at
+  p = 0.01 and p = 0.05 (unchanged); identical-pair SWAP P(0) is 0.9326
+  at p = 0.01 and 0.7549 at p = 0.05, still above the 0.75 threshold but
+  contracting toward it, as expected when prep and CSWAP noise act on a
+  49-qubit circuit.
+- Chemistry pairs (the original failures): 5/5 correct at threshold
+  0.75. Aspirin vs itself 1.0000; aspirin vs amide analog 0.4944; benzene
+  vs toluene 0.4849; benzene vs pyridine 0.4900; benzene vs cyclohexane
+  0.4980. Every distinct pair has encoded Hamming distance 12 and sits
+  at the analytic floor.
+- Use-case demos (each folder under `use cases/` has the script and a
+  `results.json` with full per-pair output): genomic identity 12/12
+  quantum and 12/12 classical; model/dataset integrity 3/3 (a 3-byte
+  change measures 0.5073); replica equality 3/3 (one-byte changes at the
+  start and at the end of a 3,420-byte record measure 0.5093 and
+  0.4902); record linkage 3/3 (a one-character DOB change measures
+  0.4919); superdense packing message accuracy 1.00 at p = 0, 0.01,
+  0.05; compound-library dedup recovers exactly the 4 planted duplicates
+  out of 64 cross pairs, no extras, no misses; quantum-chemistry result
+  verification 3/3 (a third-decimal coordinate change measures 0.5068).
+
+One measurement caveat, recorded because it was observed: single
+MPS-plus-noise simulator jobs twice produced outlier estimates during
+development (an identical pair at 0.728 and one distinct pair at 0.772)
+that did not reproduce on re-runs; repeated clean measurements of
+noisy identical pairs concentrated at 0.84-0.87 and of distinct pairs at
+0.49-0.51, and the full noisy pipeline run above passed 12/12. Noisy
+single-job estimates on this simulator should be read with that
+run-to-run variance in mind.
+
+What did not change: the fingerprint is still 24 qubits and the
+communication advantage argument is untouched (in fact the encoded
+fingerprint now has an exact overlap dichotomy rather than a graded
+one). The residual fingerprint caveat is the fold: two different strings
+whose folded 12-bit messages collide (probability 2^-12 for a random
+distinct pair) stay indistinguishable to the quantum stage, exactly as
+with any short fingerprint; the classical hashrope stage remains the
+exact check.

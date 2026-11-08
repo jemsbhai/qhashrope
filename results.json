@@ -76,9 +76,9 @@
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 1,
-        "analytic_p0": 0.5190301168721784,
-        "estimated_p0": 0.52783203125,
+        "codeword_hamming": 8,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.502197265625,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
@@ -87,9 +87,9 @@
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 1,
-        "analytic_p0": 0.5190301168721783,
-        "estimated_p0": 0.5322265625,
+        "codeword_hamming": 12,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.49609375,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
@@ -98,9 +98,9 @@
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 1,
-        "analytic_p0": 0.6543291419087274,
-        "estimated_p0": 0.656005859375,
+        "codeword_hamming": 16,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.51416015625,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
@@ -109,9 +109,9 @@
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 1,
-        "analytic_p0": 0.5732233047033631,
-        "estimated_p0": 0.564208984375,
+        "codeword_hamming": 16,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.4833984375,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
@@ -120,9 +120,9 @@
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 1,
-        "analytic_p0": 0.8456708580912724,
-        "estimated_p0": 0.84228515625,
+        "codeword_hamming": 8,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.48583984375,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
@@ -131,9 +131,9 @@
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 3,
-        "analytic_p0": 0.5126555812845451,
-        "estimated_p0": 0.5283203125,
+        "codeword_hamming": 16,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.5146484375,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
@@ -142,9 +142,9 @@
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 3,
-        "analytic_p0": 0.7052667372585014,
-        "estimated_p0": 0.703857421875,
+        "codeword_hamming": 12,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.50439453125,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
@@ -153,64 +153,53 @@
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 3,
-        "analytic_p0": 0.5013934480462722,
-        "estimated_p0": 0.48388671875,
-        "quantum_decision_equal": false,
-        "quantum_correct": true
-      },
-      {
-        "mutations": 3,
-        "ground_truth_equal": false,
-        "classical_fingerprint_match": false,
-        "classical_rope_equal": false,
-        "codeword_hamming": 3,
-        "analytic_p0": 0.5091529130879204,
-        "estimated_p0": 0.514892578125,
-        "quantum_decision_equal": false,
-        "quantum_correct": true
-      },
-      {
-        "mutations": 3,
-        "ground_truth_equal": false,
-        "classical_fingerprint_match": false,
-        "classical_rope_equal": false,
-        "codeword_hamming": 3,
-        "analytic_p0": 0.6267145576940351,
-        "estimated_p0": 0.6318359375,
-        "quantum_decision_equal": false,
-        "quantum_correct": true
-      },
-      {
-        "mutations": 10,
-        "ground_truth_equal": false,
-        "classical_fingerprint_match": false,
-        "classical_rope_equal": false,
-        "codeword_hamming": 6,
-        "analytic_p0": 0.5000091663197811,
-        "estimated_p0": 0.49560546875,
-        "quantum_decision_equal": false,
-        "quantum_correct": true
-      },
-      {
-        "mutations": 10,
-        "ground_truth_equal": false,
-        "classical_fingerprint_match": false,
-        "classical_rope_equal": false,
-        "codeword_hamming": 7,
-        "analytic_p0": 0.5000006977445469,
+        "codeword_hamming": 16,
+        "analytic_p0": 0.5,
         "estimated_p0": 0.49853515625,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
       {
+        "mutations": 3,
+        "ground_truth_equal": false,
+        "classical_fingerprint_match": false,
+        "classical_rope_equal": false,
+        "codeword_hamming": 8,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.51123046875,
+        "quantum_decision_equal": false,
+        "quantum_correct": true
+      },
+      {
+        "mutations": 3,
+        "ground_truth_equal": false,
+        "classical_fingerprint_match": false,
+        "classical_rope_equal": false,
+        "codeword_hamming": 12,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.513671875,
+        "quantum_decision_equal": false,
+        "quantum_correct": true
+      },
+      {
         "mutations": 10,
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 7,
-        "analytic_p0": 0.5000067203012899,
-        "estimated_p0": 0.516357421875,
+        "codeword_hamming": 12,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.504638671875,
+        "quantum_decision_equal": false,
+        "quantum_correct": true
+      },
+      {
+        "mutations": 10,
+        "ground_truth_equal": false,
+        "classical_fingerprint_match": false,
+        "classical_rope_equal": false,
+        "codeword_hamming": 12,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.498779296875,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
@@ -220,8 +209,8 @@
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
         "codeword_hamming": 8,
-        "analytic_p0": 0.5007319103225242,
-        "estimated_p0": 0.502685546875,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.4892578125,
         "quantum_decision_equal": false,
         "quantum_correct": true
       },
@@ -230,9 +219,20 @@
         "ground_truth_equal": false,
         "classical_fingerprint_match": false,
         "classical_rope_equal": false,
-        "codeword_hamming": 9,
-        "analytic_p0": 0.5001673729325127,
-        "estimated_p0": 0.50244140625,
+        "codeword_hamming": 8,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.50146484375,
+        "quantum_decision_equal": false,
+        "quantum_correct": true
+      },
+      {
+        "mutations": 10,
+        "ground_truth_equal": false,
+        "classical_fingerprint_match": false,
+        "classical_rope_equal": false,
+        "codeword_hamming": 12,
+        "analytic_p0": 0.5,
+        "estimated_p0": 0.50927734375,
         "quantum_decision_equal": false,
         "quantum_correct": true
       }
@@ -246,39 +246,39 @@
       },
       "1": {
         "n": 5,
-        "mean_estimated_p0": 0.62451171875,
+        "mean_estimated_p0": 0.496337890625,
         "quantum_accuracy": 1.0,
         "classical_accuracy": 1.0
       },
       "3": {
         "n": 5,
-        "mean_estimated_p0": 0.57255859375,
+        "mean_estimated_p0": 0.50849609375,
         "quantum_accuracy": 1.0,
         "classical_accuracy": 1.0
       },
       "10": {
         "n": 5,
-        "mean_estimated_p0": 0.503125,
+        "mean_estimated_p0": 0.50068359375,
         "quantum_accuracy": 1.0,
         "classical_accuracy": 1.0
       }
     },
     "quantum_accuracy_overall": 1.0,
-    "max_abs_p0_error_vs_analytic": 0.017506729296272172
+    "max_abs_p0_error_vs_analytic": 0.0166015625
   },
   "stage5_end_to_end": {
     "classical_pack_all_ok": true,
     "quantum_pack_message_accuracy": 1.0,
     "noise_p": 0.02,
-    "calibration_identical_p0": 0.80029296875,
-    "calibrated_threshold": 0.650146484375,
+    "identical_pair_p0_under_noise_diagnostic": 0.719970703125,
+    "threshold": 0.75,
     "trials": [
       {
         "mutations": 0,
         "ground_truth_equal": true,
         "classical_decision_equal": true,
-        "quantum_decision_equal": true,
-        "quantum_p0": 0.812255859375,
+        "quantum_decision_equal": false,
+        "quantum_p0": 0.734375,
         "quantum_analytic_p0": 1.0,
         "codeword_hamming": 0
       },
@@ -286,8 +286,8 @@
         "mutations": 0,
         "ground_truth_equal": true,
         "classical_decision_equal": true,
-        "quantum_decision_equal": true,
-        "quantum_p0": 0.81005859375,
+        "quantum_decision_equal": false,
+        "quantum_p0": 0.739990234375,
         "quantum_analytic_p0": 1.0,
         "codeword_hamming": 0
       },
@@ -295,8 +295,8 @@
         "mutations": 0,
         "ground_truth_equal": true,
         "classical_decision_equal": true,
-        "quantum_decision_equal": true,
-        "quantum_p0": 0.794921875,
+        "quantum_decision_equal": false,
+        "quantum_p0": 0.735595703125,
         "quantum_analytic_p0": 1.0,
         "codeword_hamming": 0
       },
@@ -304,37 +304,37 @@
         "mutations": 1,
         "ground_truth_equal": false,
         "classical_decision_equal": false,
-        "quantum_decision_equal": true,
-        "quantum_p0": 0.654541015625,
-        "quantum_analytic_p0": 0.75,
-        "codeword_hamming": 1
+        "quantum_decision_equal": false,
+        "quantum_p0": 0.500244140625,
+        "quantum_analytic_p0": 0.5,
+        "codeword_hamming": 12
       },
       {
         "mutations": 1,
         "ground_truth_equal": false,
         "classical_decision_equal": false,
         "quantum_decision_equal": false,
-        "quantum_p0": 0.5576171875,
-        "quantum_analytic_p0": 0.5732233047033631,
-        "codeword_hamming": 1
+        "quantum_p0": 0.503173828125,
+        "quantum_analytic_p0": 0.5,
+        "codeword_hamming": 12
       },
       {
         "mutations": 3,
         "ground_truth_equal": false,
         "classical_decision_equal": false,
         "quantum_decision_equal": false,
-        "quantum_p0": 0.51611328125,
-        "quantum_analytic_p0": 0.5192911427385909,
-        "codeword_hamming": 3
+        "quantum_p0": 0.510986328125,
+        "quantum_analytic_p0": 0.5,
+        "codeword_hamming": 16
       },
       {
         "mutations": 3,
         "ground_truth_equal": false,
         "classical_decision_equal": false,
         "quantum_decision_equal": false,
-        "quantum_p0": 0.530029296875,
-        "quantum_analytic_p0": 0.5352182043054095,
-        "codeword_hamming": 3
+        "quantum_p0": 0.493408203125,
+        "quantum_analytic_p0": 0.5,
+        "codeword_hamming": 12
       },
       {
         "mutations": 10,
@@ -342,17 +342,17 @@
         "classical_decision_equal": false,
         "quantum_decision_equal": false,
         "quantum_p0": 0.49755859375,
-        "quantum_analytic_p0": 0.5002137009073859,
-        "codeword_hamming": 5
+        "quantum_analytic_p0": 0.5,
+        "codeword_hamming": 16
       },
       {
         "mutations": 10,
         "ground_truth_equal": false,
         "classical_decision_equal": false,
         "quantum_decision_equal": false,
-        "quantum_p0": 0.50537109375,
-        "quantum_analytic_p0": 0.5004287431404938,
-        "codeword_hamming": 8
+        "quantum_p0": 0.493408203125,
+        "quantum_analytic_p0": 0.5,
+        "codeword_hamming": 12
       }
     ],
     "classical_verify_confusion": {
@@ -363,11 +363,11 @@
       "accuracy": 1.0
     },
     "quantum_verify_confusion": {
-      "TP": 3,
-      "TN": 5,
-      "FP": 1,
-      "FN": 0,
-      "accuracy": 0.8888888888888888
+      "TP": 0,
+      "TN": 6,
+      "FP": 0,
+      "FN": 3,
+      "accuracy": 0.6666666666666666
     }
   },
   "stage6_noise_sweep": {
@@ -375,18 +375,18 @@
       "superdense_message_accuracy": 1.0,
       "superdense_bit_accuracy": 1.0,
       "swap_identical_p0": [
-        0.88623046875,
-        0.88623046875
+        0.8388671875,
+        0.835693359375
       ]
     },
     "0.05": {
       "superdense_message_accuracy": 1.0,
       "superdense_bit_accuracy": 1.0,
       "swap_identical_p0": [
-        0.635986328125,
-        0.63232421875
+        0.56884765625,
+        0.58642578125
       ]
     }
   },
-  "runtime_seconds": 78.4
+  "runtime_seconds": 185.8
 }

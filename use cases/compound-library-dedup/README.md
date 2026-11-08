@@ -7,3 +7,16 @@
 **Prototype status.** The verify stage this case rests on is demonstrated end to end in simulation, and the chemistry-specific run in the molecular-identity folder is the honest calibration for expectations: on five SMILES pairs the quantum stage classified 3 of 5 correctly, including a full codeword collision between two distinct short structures. A library-scale version additionally needs a candidate-generation step (most cross-library pairs are obviously different and never need a SWAP test), which this prototype does not yet have.
 
 **Known limitation.** Equality-only cuts both ways: the protocol answers "identical canonical string" and nothing more, so tautomers, salt forms, and alternate canonicalizations of the same compound read as different unless both sides canonicalize identically first, and near-duplicates (the analog series a chemist actually cares about) are out of scope by construction. The measured collision risk in the molecular-identity demo also applies directly: with the current codeword, some distinct short structures are indistinguishable to the quantum stage, so a dedup run today would silently merge them. The error-correcting codeword upgrade is a prerequisite for trusting the quantum stage at library scale; the classical stage has no such issue.
+
+## Measured results (fixed encoding, 2026-11-08)
+
+Demo: `dedup_demo.py`; data: `results.json` (full 8x8 match matrix).
+Settings: noiseless AerSimulator (matrix_product_state), 4096 shots per
+pair, global threshold 0.75, Golay-encoded fingerprint. 64 cross-library
+pairs compared.
+
+- Planted duplicates across the libraries: aspirin, benzene, caffeine,
+  ethanol (4).
+- Quantum fingerprint matches: exactly those 4, each at P(0) = 1.0000.
+  No extras, no misses.
+- Classical hashrope reference: the same 4, agreeing exactly.
