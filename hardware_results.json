@@ -2,7 +2,7 @@
   "backend": "ibm_marrakesh",
   "shots_per_circuit": 4096,
   "submitted_at_utc": "2026-11-08T15:03:43.946118+00:00",
-  "harvested_at_utc": "2026-11-08T15:38:27.829190+00:00",
+  "harvested_at_utc": "2026-11-08T16:23:18.345670+00:00",
   "threshold": 0.75,
   "pairs": [
     {
@@ -132,5 +132,14 @@
       "correct_R3": true
     }
   ],
-  "monolithic_exploratory": null
+  "monolithic_exploratory": {
+    "pair_id": "A_dna_identical",
+    "label": "EXPLORATORY: monolithic 49-qubit SWAP test, DNA identical pair",
+    "job_id": "dbo8uudt7fqc73ako33g",
+    "kind": "monolithic_swap_test_exploratory",
+    "p0": 0.4814,
+    "decision_equal": false,
+    "ground_truth_equal": true,
+    "correct": false
+  }
 }

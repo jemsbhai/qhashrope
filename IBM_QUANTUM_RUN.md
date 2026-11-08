@@ -32,6 +32,6 @@ All 156-qubit Heron r2 devices, online, region us-east:
 | dbo8ukc4148s73924tfg | Pair A, identical DNA segments, 24 per-bit SWAP circuits | DONE, harvested |
 | dbo8ukgou4as73b5ml6g | Pair B, benzene vs cyclohexane, 24 per-bit SWAP circuits | DONE, harvested |
 | dbo8ul5t7fqc73ako2pg | Pair C, aspirin vs amide analog, 24 per-bit SWAP circuits | DONE, harvested |
-| dbo8uudt7fqc73ako33g | Exploratory monolithic 49-qubit SWAP circuit, pair A (transpiled depth about 1,026, 495 CZ) | QUEUED at last check 2026-11-08 15:56 UTC |
+| dbo8uudt7fqc73ako33g | Exploratory monolithic 49-qubit SWAP circuit, pair A (transpiled depth about 1,026, 495 CZ) | DONE, harvested 2026-11-08: P(0) = 0.4814 on the identical pair, decision differ (incorrect); see HARDWARE_RESULTS.md |
 
-Submission script: submit_hardware.py. Submission record: hardware_jobs.json. Results: HARDWARE_RESULTS.md and hardware_results.json. The queued monolithic job is harvested and analysed by retrieve_hardware_results.py, which updates HARDWARE_RESULTS.md when the job completes.
+Submission script: submit_hardware.py. Submission record: hardware_jobs.json. Results: HARDWARE_RESULTS.md and hardware_results.json. The monolithic job completed later on 2026-11-08 and was harvested and analysed by retrieve_hardware_results.py; its measured result is recorded in HARDWARE_RESULTS.md and hardware_results.json.
