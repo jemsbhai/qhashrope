@@ -1,0 +1,25 @@
+Stage 1 classical pack: all_ok = True ['QHASHROPE-DEMO', 'PACK:MSQR+SDC', 'VERIFY:SWAP-TEST']
+Stage 2 quantum pack: message_accuracy = 1.0  bit_accuracy = 1.0
+  pair mut= 0 dH= 0 analytic=1.0000 estimated=1.0000 correct=True
+  pair mut= 0 dH= 0 analytic=1.0000 estimated=1.0000 correct=True
+  pair mut= 0 dH= 0 analytic=1.0000 estimated=1.0000 correct=True
+  pair mut= 1 dH= 1 analytic=0.5190 estimated=0.5278 correct=True
+  pair mut= 1 dH= 1 analytic=0.5190 estimated=0.5322 correct=True
+  pair mut= 1 dH= 1 analytic=0.6543 estimated=0.6560 correct=True
+  pair mut= 1 dH= 1 analytic=0.5732 estimated=0.5642 correct=True
+  pair mut= 1 dH= 1 analytic=0.8457 estimated=0.8423 correct=True
+  pair mut= 3 dH= 3 analytic=0.5127 estimated=0.5283 correct=True
+  pair mut= 3 dH= 3 analytic=0.7053 estimated=0.7039 correct=True
+  pair mut= 3 dH= 3 analytic=0.5014 estimated=0.4839 correct=True
+  pair mut= 3 dH= 3 analytic=0.5092 estimated=0.5149 correct=True
+  pair mut= 3 dH= 3 analytic=0.6267 estimated=0.6318 correct=True
+  pair mut=10 dH= 6 analytic=0.5000 estimated=0.4956 correct=True
+  pair mut=10 dH= 7 analytic=0.5000 estimated=0.4985 correct=True
+  pair mut=10 dH= 7 analytic=0.5000 estimated=0.5164 correct=True
+  pair mut=10 dH= 8 analytic=0.5007 estimated=0.5027 correct=True
+  pair mut=10 dH= 9 analytic=0.5002 estimated=0.5024 correct=True
+Stage 3+4 verify: quantum accuracy overall = 1.0  max |est - analytic| = 0.0175
+Stage 5 end-to-end: classical confusion = {'TP': 3, 'TN': 6, 'FP': 0, 'FN': 0, 'accuracy': 1.0}  quantum confusion = {'TP': 3, 'TN': 5, 'FP': 1, 'FN': 0, 'accuracy': 0.8888888888888888}
+Stage 6 noise p = 0.01 {'superdense_message_accuracy': 1.0, 'superdense_bit_accuracy': 1.0, 'swap_identical_p0': [0.88623046875, 0.88623046875]}
+Stage 6 noise p = 0.05 {'superdense_message_accuracy': 1.0, 'superdense_bit_accuracy': 1.0, 'swap_identical_p0': [0.635986328125, 0.63232421875]}
+Wrote results.json in 78.4s

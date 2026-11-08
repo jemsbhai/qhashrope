@@ -1,0 +1,6 @@
+PASS superdense: all 4 messages, 256/256 shots each
+PASS multispecqr: 3 payloads round-trip lossless
+PASS hashrope: identical ropes equal, 1-substitution ropes differ
+PASS swap identical: P(0) = 1.0000 (theory 1.0)
+PASS swap orthogonal-ish: P(0) = 0.5000 (theory 0.5)
+ALL TESTS PASSED
