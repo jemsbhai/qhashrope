@@ -118,6 +118,18 @@ is a demo parameter, not a registry parameter. (4) Hardware run of the
 per-bit two-server form, whose 3-qubit circuits are the realistic
 near-term target.
 
+**Hardware update, 2026-11-08.** Step (4) has been taken: the per-bit
+two-server protocol ran on IBM Quantum hardware (ibm_marrakesh), and
+two of the three hardware pairs were this folder's: benzene vs
+cyclohexane and aspirin vs its amide analog. Both were decided differ
+with all 12 differing bits decided correctly and 0 bit-decision errors
+(the third pair, an identical DNA pair, was decided equal). Hardware
+per-bit P(0) values tracked the p = 0.02 simulation (agreeing bits
+0.9456-0.9670, differing bits 0.4880-0.5334). The "simulator numbers,
+not hardware numbers" note in the fixed-encoding section above is
+superseded for these two pairs. Full record: the root
+HARDWARE_RESULTS.md and IBM_QUANTUM_RUN.md.
+
 ## How it works
 
 ```mermaid

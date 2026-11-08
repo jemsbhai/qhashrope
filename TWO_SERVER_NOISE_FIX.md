@@ -1,7 +1,8 @@
 # Can the two-server construction fix qhashrope's noisy verification?
 
-Analysis prepared 2026-11-08. Local working document, not for the repo
-without review.
+Analysis prepared 2026-11-08. This document is the experiment record
+behind the "Two-server noise fix, 2026-11-08" section of RESULTS.md and
+is part of the repo record.
 
 Sources read for this analysis:
 
@@ -343,4 +344,27 @@ pair, monolithic estimates, circuit op counts).
   bit runs outright; but readout error now lands on 24 separate runs,
   queue cost is 24 jobs per comparison, and none of that is measured
   here. The 2^-12 fold-collision caveat is unchanged in all variants.
+  (Closed the same day: see "Hardware follow-up, 2026-11-08" below.)
+
+---
+
+## Hardware follow-up, 2026-11-08
+
+The open hardware question in the verdict above was answered the same
+day. The per-bit protocol (R3, Golay radius-3 recombination) ran on
+IBM Quantum hardware, backend ibm_marrakesh (SamplerV2, 4096 shots
+per circuit), on three pairs: an identical DNA pair, benzene vs
+cyclohexane, and aspirin vs its amide analog (the two chemistry pairs
+from section C). All 3 pair decisions were correct, with zero
+bit-decision errors in 72 bit tests: the identical pair showed 0
+decided-differ bits, and each distinct pair showed exactly its true
+Hamming distance of 12. Hardware per-bit P(0) values tracked the
+p = 0.02 simulation closely (agreeing bits 0.9456-0.9670, differing
+bits 0.4880-0.5334), and unlike the Aer model the device numbers
+include readout error, T1/T2 decoherence, and crosstalk. The cost
+noted above was the submission shape actually used: 24 circuits per
+comparison, 72 circuits for the three pairs. Full per-bit values and
+job IDs: HARDWARE_RESULTS.md; account and instance record:
+IBM_QUANTUM_RUN.md. The 2^-12 fold-collision caveat is unchanged: it
+applies to the hardware runs exactly as it does in simulation.
 

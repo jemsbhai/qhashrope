@@ -6,7 +6,7 @@
 
 **Prototype status.** The verify primitive is demonstrated on byte-string payloads in simulation (18/18 sequence pairs classified correctly; 0.89 end-to-end accuracy under depolarizing noise p=0.02 after noise-calibrated thresholding). Applying it to real checkpoint files is an integration step, not a research step.
 
-**Known limitation.** Near-identical artifacts (a checkpoint differing in a few weights) sit near the decision threshold with the current encoding; the error-correcting fingerprint encoding is the planned fix.
+**Known limitation.** Near-identical artifacts (a checkpoint differing in a few weights) sit near the decision threshold with the current encoding; the error-correcting fingerprint encoding is the planned fix. (Update, 2026-11-08: that encoding has landed; see the measured results with the fixed encoding below. The prototype status above describes the original encoding's run.)
 
 ## Measured results (fixed encoding, 2026-11-08)
 

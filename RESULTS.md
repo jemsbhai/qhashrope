@@ -8,8 +8,10 @@ classical systems with their quantum counterparts:
 | Pack | MultiSpecQR: 3 payloads multiplexed into one RGB image | Superdense coding: 2 bits per transmitted qubit over shared Bell pairs |
 | Verify | hashrope polynomial fingerprints (exact rope equality) | Ablayev-Vasiliev-style product-state fingerprints + SWAP test |
 
-Built and run 2026-11-07. **Simulator only.** IBM Quantum hardware runs are
-the remaining step and need the user's personal account token (not used here).
+Built and run 2026-11-07. **Simulator only for this original run.** IBM
+Quantum hardware runs followed on 2026-11-08; see the dated sections at the
+end of this file ("Encoding fix", "Two-server noise fix", "Hardware run")
+and HARDWARE_RESULTS.md.
 
 ## Environment
 
@@ -136,7 +138,11 @@ cross-checked against the analytic values in `results.json`.
 - **Simulator only.** No IBM Quantum hardware was accessed; no token was
   available to this build. Hardware P(0) values will sit below the MPS
   numbers (real devices add readout error, crosstalk, and T1/T2 decay on
-  top of the depolarizing model used here).
+  top of the depolarizing model used here). (Superseded in part on
+  2026-11-08: the two-server per-bit protocol, developed after this build,
+  has since run on ibm_marrakesh with 3 of 3 pair decisions correct and 0
+  bit-decision errors; see the "Hardware run, 2026-11-08" section at the
+  end of this file.)
 - **No speedup is claimed anywhere.** The quantum fingerprint equality test
   is a communication-complexity statement (simultaneous-message model):
   fingerprints of ~log n qubits suffice for equality testing between two
@@ -162,6 +168,18 @@ cross-checked against the analytic values in `results.json`.
    on hardware sets the threshold) before classifying any pair.
 3. Optional: readout-error mitigation on the ancilla measurement; ECC
    (Reed–Solomon) codeword upgrade for the fingerprint stage.
+
+**Update, 2026-11-08.** The hardware step was executed, in a different
+shape than the plan above: by then the fingerprint encoding had been
+replaced (Golay (24,12,8), below) and the monolithic SWAP form had been
+shown to be the form noise breaks, so what ran on ibm_marrakesh was the
+two-server per-bit protocol (24 three-qubit circuits per pair), not the
+two monolithic circuit families and not a stage-5 calibration (the fixed
+encoding needs none: the 0.75 threshold is set by construction). Result:
+3 of 3 pair decisions correct, 0 bit-decision errors in 72 bit tests. An
+exploratory monolithic 49-qubit job was also submitted; its status is
+recorded in HARDWARE_RESULTS.md. Full record: HARDWARE_RESULTS.md and
+IBM_QUANTUM_RUN.md.
 
 ## Encoding fix, 2026-11-08
 
@@ -353,7 +371,9 @@ benzene vs cyclohexane, and an independent known-identical control.
   and the radius-3 rule tolerates up to 3 fully wrong bit decisions
   outright, but the hardware advantage is argued, not measured. The
   IBM Quantum hardware run remains open, and the simulator verdict
-  does not transfer to hardware automatically.
+  does not transfer to hardware automatically. (Update, 2026-11-08:
+  the hardware run has since been executed and agreed with the
+  simulator verdict; see the next section.)
 - **The 2^-12 fold collision is untouched.** Two strings whose folded
   12-bit messages coincide remain indistinguishable to the quantum
   stage in every variant, monolithic or decomposed. The classical
@@ -361,4 +381,4 @@ benzene vs cyclohexane, and an independent known-identical control.
 
 ## Hardware run, 2026-11-08
 
-The two-server per-bit protocol was run on IBM Quantum hardware (**ibm_marrakesh**): 3 of 3 pair decisions correct under the Golay radius-3 rule, 0 bit decision errors in total. Full per-bit values, job IDs and the exploratory monolithic 49-qubit job are in `HARDWARE_RESULTS.md` (`hardware_results.json`, `hardware_jobs.json`).
+The two-server per-bit protocol was run on IBM Quantum hardware (**ibm_marrakesh**, SamplerV2, 4096 shots per circuit): 3 of 3 pair decisions correct under the Golay radius-3 rule, 0 bit decision errors in 72 per-bit tests. The three pairs were an identical DNA pair (decided equal, 0 bits differ), benzene vs cyclohexane (12 of 12 differing bits decided differ), and aspirin vs its amide analog (12 of 12). Hardware per-bit P(0) tracked the p=0.02 simulation closely: agreeing bits measured 0.9456-0.9670 and differing bits 0.4880-0.5334, with the device's readout error, decoherence, and crosstalk included in those numbers, none of which the Aer model has. Full per-bit values, job IDs (dbo8ukc4148s73924tfg, dbo8ukgou4as73b5ml6g, dbo8ul5t7fqc73ako2pg) and the exploratory monolithic 49-qubit job are in `HARDWARE_RESULTS.md` (`hardware_results.json`, `hardware_jobs.json`); the account and instance record is in `IBM_QUANTUM_RUN.md`.

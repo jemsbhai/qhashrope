@@ -4,9 +4,9 @@
 
 **qhashrope fit.** Each side computes a quantum fingerprint of its sequence locally and sends only the fingerprint: O(log n) qubits for an n-base record. A SWAP test answers equality and reveals almost nothing about the sequence itself. This is the quantum counterpart of hashrope-bio, the author's classical genomic toolkit validated on GRCh38 chr22 (5,770/5,770 gene/exon queries) and ClinVar (3,422/3,422 pathogenic SNVs localized).
 
-**Prototype status.** The verification stage is demonstrated on seeded 96 bp segments: identical, 1, 3, and 10 substitution pairs separate cleanly in simulation (SWAP-test P(0) of 1.000, 0.625, 0.573, 0.503). Scaling to full-length sequences and a hardware run are open steps.
+**Prototype status.** The verification stage is demonstrated on seeded 96 bp segments: identical, 1, 3, and 10 substitution pairs separate cleanly in simulation (SWAP-test P(0) of 1.000, 0.625, 0.573, 0.503). Scaling to full-length sequences and a hardware run are open steps. (Update, 2026-11-08: the per-bit two-server protocol has since run on hardware at root level, with this case's identical DNA pair among the hardware pairs; see the hardware update in the strengthened analysis below.)
 
-**Known limitation.** The current block-hash codeword has no minimum distance, so near-identical sequences sit close to the decision threshold (one false positive under depolarizing noise p=0.02). The Ablayev-Vasiliev error-correcting encoding is the planned fix.
+**Known limitation.** The current block-hash codeword has no minimum distance, so near-identical sequences sit close to the decision threshold (one false positive under depolarizing noise p=0.02). The Ablayev-Vasiliev error-correcting encoding is the planned fix. (Update, 2026-11-08: that encoding has landed; the pre-fix status above is the original run, and the measured results with the fixed encoding follow below.)
 
 ## Measured results (fixed encoding, 2026-11-08)
 
@@ -80,6 +80,13 @@ variant on hardware: the per-bit circuits are 3 qubits and shallow, so
 they are the natural first hardware target. (4) A defined referee
 non-collusion arrangement for the clinic and biobank setting, since the
 privacy reading depends on it.
+
+**Hardware update, 2026-11-08.** Step (3) has been taken at root
+level: the two-server per-bit protocol ran on IBM Quantum hardware
+(ibm_marrakesh), 3 of 3 pair decisions correct with 0 bit-decision
+errors in 72 bit tests, and one of the three pairs was this case's
+identical DNA pair (decided equal, 0 of 24 bits differ). Full record:
+the root HARDWARE_RESULTS.md and IBM_QUANTUM_RUN.md.
 
 ## How it works
 
