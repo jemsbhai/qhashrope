@@ -283,3 +283,78 @@ whose folded 12-bit messages collide (probability 2^-12 for a random
 distinct pair) stay indistinguishable to the quantum stage, exactly as
 with any short fingerprint; the classical hashrope stage remains the
 exact check.
+
+## Two-server noise fix, 2026-11-08
+
+The stage-5 failure recorded in the section above (fixed encoding,
+monolithic 49-qubit SWAP test: at depolarizing p = 0.02 the
+identical-pair signal contracts to 0.72-0.74 and falls below the 0.75
+threshold) stands as measured. This section records a follow-up
+experiment, run the same day, that closes that specific gap in
+simulation. Full analysis, script, and raw per-bit data:
+`TWO_SERVER_NOISE_FIX.md`, `two_server_experiment.py`,
+`two_server_results.json`.
+
+### The fix
+
+The architectural pattern is imported from the author's ICTAI 2026
+paper, "Exact Privacy-Preserving Similarity Search via Two-Server
+Additive Secret Sharing" (DOI 10.1109/ICTAI70596.2026.00211): replace
+one fragile global computation with many small partial computations on
+shares, performed independently, whose results the client recombines
+exactly. It applies here because the Golay-encoded fingerprint is a
+computational-basis product state, so its overlap factorises exactly
+over the 24 encoded bit positions: the single 49-qubit SWAP network
+(24 X + 2 H + 24 CSWAP) is replaced by 24 independent 3-qubit SWAP
+tests (ancilla plus the two parties' j-th bits; at most 5 noisy gates
+each). Each test returns a per-bit binary decision (positions agree iff
+per-bit P(0) >= 0.75), and the client decides "equal" iff at most 3
+positions are decided differ, the unique-decoding radius of the
+(24,12,8) Golay code. In the two-server mapping, two non-colluding
+referees each execute a disjoint subset of the bit tests and return the
+estimates; only the client recombines them.
+
+### Measured head-to-head at p = 0.02
+
+Same noise model (`qhashrope.qnoise`), MPS simulator, 4096 shots per
+circuit, 13 pairs: 3 identical DNA, 3 DNA at 1 substitution, 3 DNA at
+10 substitutions, aspirin vs aspirin, aspirin vs its amide analog,
+benzene vs cyclohexane, and an independent known-identical control.
+
+- **Monolithic circuit at the 0.75 threshold: 8/13.** All 5 identical
+  pairs fail, measuring 0.7244-0.7402; all 8 distinct pairs pass
+  (0.4912-0.5142). The stage-5 failure reproduces with fresh runs.
+- **Per-bit decisions with Golay radius-3 recombination: 13/13.**
+  Across all 312 bit tests there were zero bit-decision errors:
+  agreeing bits measured P(0) in [0.9521, 0.9771] and differing bits in
+  [0.4866, 0.5225], a clean gap around the 0.75 per-bit threshold.
+  Identical pairs show 0 decided-differ bits; distinct pairs show
+  8-16, equal to their true codeword Hamming distances in every case
+  (the Golay minimum distance is 8). The decision sits at least 4
+  bit-errors away from flipping on both sides.
+- **Analog product recombination: 8/13, and explicitly not the fix.**
+  Multiplying the per-bit factors into a global overlap estimate and
+  thresholding at 0.75 fails with the same signature as the monolithic
+  circuit: identical pairs land at 0.5863-0.5927, because the ~0.93
+  per-bit contraction compounds across all 24 factors (0.93^24 ~ 0.18).
+  Decomposition alone fixes nothing; decomposition plus decision-level
+  recombination under the Golay decoding rule is the fix. (A relative
+  control-pair rule also reached 13/13, but on a thin margin of ~0.04.)
+
+### Caveats
+
+- **Cost: 24 circuits per comparison instead of 1**, and 24x the shots
+  for the same per-factor precision. On queued hardware, submission
+  count dominates latency.
+- **Simulator limits.** The Aer noise model used here is
+  gate-depolarizing only: no readout error, no idle decoherence
+  (T1/T2), no crosstalk. The per-bit circuits (3 qubits, depth ~5)
+  should be far less exposed to those terms than a 49-qubit circuit,
+  and the radius-3 rule tolerates up to 3 fully wrong bit decisions
+  outright, but the hardware advantage is argued, not measured. The
+  IBM Quantum hardware run remains open, and the simulator verdict
+  does not transfer to hardware automatically.
+- **The 2^-12 fold collision is untouched.** Two strings whose folded
+  12-bit messages coincide remain indistinguishable to the quantum
+  stage in every variant, monolithic or decomposed. The classical
+  hashrope stage remains the exact check.
