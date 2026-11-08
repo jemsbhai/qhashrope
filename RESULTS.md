@@ -228,17 +228,26 @@ flag, and the validation runs below use the new encoding throughout):
   stage, re-run).
 - Stage 3, classical verify: 18/18.
 - Stage 4, quantum verify, noiseless: 18/18. Identical pairs measure
-  P(0) = 1.0000; distinct-pair class means are 0.5010 (1 substitution),
-  0.4993 (3), 0.5073 (10) - all at the analytic floor 0.5, independent of
-  mutation count, as the distance-8 bound requires.
+  P(0) = 1.0000; distinct-pair class means are 0.4963 (1 substitution),
+  0.5085 (3), 0.5007 (10) - all at the analytic floor 0.5, independent of
+  mutation count, as the distance-8 bound requires. Largest
+  |estimate - analytic| over the 18 pairs: 0.0166.
 - Stage 5, noisy end-to-end (depolarizing p = 0.02 on every gate,
-  threshold 0.75, no calibration): 12/12 correct. The identical-pair
-  estimate under the same noise, kept as a diagnostic only, is 0.8730.
+  threshold 0.75, no calibration): **the quantum stage scores 6/9 and
+  fails this stage.** All 6 distinct pairs are classified correctly
+  (0.4934-0.5110); all 3 identical pairs are false negatives, measuring
+  0.7344, 0.7400, and 0.7356 against the 0.75 threshold. The classical
+  stage scores 9/9. The identical-pair estimate under the same noise,
+  kept as a diagnostic only, is 0.7200. Cause: the encoded circuit is
+  49 qubits with roughly twice the noisy gates of the legacy 25-qubit
+  circuit, so at p = 0.02 the identical-pair signal contracts to
+  ~0.72-0.74, below the 0.75 midpoint. The encoding is exact
+  noiselessly; what was traded away is noise margin, and no threshold
+  or noise-model adjustment was made to mask that.
 - Stage 6, noise robustness: superdense message accuracy 1.00 at
-  p = 0.01 and p = 0.05 (unchanged); identical-pair SWAP P(0) is 0.9326
-  at p = 0.01 and 0.7549 at p = 0.05, still above the 0.75 threshold but
-  contracting toward it, as expected when prep and CSWAP noise act on a
-  49-qubit circuit.
+  p = 0.01 and p = 0.05 (unchanged); identical-pair SWAP P(0) measures
+  0.8389 and 0.8357 at p = 0.01 (above threshold) and 0.5688 and 0.5864
+  at p = 0.05 (below threshold).
 - Chemistry pairs (the original failures): 5/5 correct at threshold
   0.75. Aspirin vs itself 1.0000; aspirin vs amide analog 0.4944; benzene
   vs toluene 0.4849; benzene vs pyridine 0.4900; benzene vs cyclohexane
@@ -255,14 +264,16 @@ flag, and the validation runs below use the new encoding throughout):
   out of 64 cross pairs, no extras, no misses; quantum-chemistry result
   verification 3/3 (a third-decimal coordinate change measures 0.5068).
 
-One measurement caveat, recorded because it was observed: single
-MPS-plus-noise simulator jobs twice produced outlier estimates during
-development (an identical pair at 0.728 and one distinct pair at 0.772)
-that did not reproduce on re-runs; repeated clean measurements of
-noisy identical pairs concentrated at 0.84-0.87 and of distinct pairs at
-0.49-0.51, and the full noisy pipeline run above passed 12/12. Noisy
-single-job estimates on this simulator should be read with that
-run-to-run variance in mind.
+The noisy identical-pair contraction is consistent, not an outlier
+effect: repeated measurements of identical pairs at p = 0.02 across
+separate runs gave 0.7200, 0.7280, 0.7283, 0.7312, 0.7339, 0.7344,
+0.7356, 0.7397, 0.7400, and 0.7466, while distinct pairs stayed at
+0.48-0.52 throughout. Net statement: under this noise model the fixed
+encoding is exact noiselessly and fully robust for distinct pairs, but
+its identical-pair margin at p = 0.02 does not reach the 0.75 midpoint
+threshold. Closing that gap is a noise-hardening problem (fewer noisy
+gates in the encoded circuit, or error mitigation), not a threshold
+problem, and it is left as future work rather than tuned around.
 
 What did not change: the fingerprint is still 24 qubits and the
 communication advantage argument is untouched (in fact the encoded
