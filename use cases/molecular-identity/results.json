@@ -1,0 +1,267 @@
+{
+  "demo": "molecular-identity chemistry verification",
+  "payload_type": "canonical SMILES strings (byte-string payloads)",
+  "quantum": {
+    "simulator": "AerSimulator, matrix_product_state, noiseless",
+    "shots": 4096,
+    "threshold": 0.85,
+    "fingerprint": "12-block hashrope codeword, symbols mod 16, Ry(s * pi/8) product state, full SWAP test"
+  },
+  "pairs": [
+    {
+      "case": "aspirin vs aspirin (identical)",
+      "reference_smiles": "CC(=O)Oc1ccccc1C(=O)O",
+      "candidate_smiles": "CC(=O)Oc1ccccc1C(=O)O",
+      "ground_truth_equal": true,
+      "classical": {
+        "fingerprint_ref": 1075854184438253216,
+        "fingerprint_cand": 1075854184438253216,
+        "fingerprint_match": true,
+        "rope_equal": true,
+        "ground_truth_equal": true
+      },
+      "quantum": {
+        "codeword_ref": [
+          0,
+          9,
+          0,
+          14,
+          14,
+          4,
+          0,
+          0,
+          10,
+          9,
+          0,
+          14
+        ],
+        "codeword_cand": [
+          0,
+          9,
+          0,
+          14,
+          14,
+          4,
+          0,
+          0,
+          10,
+          9,
+          0,
+          14
+        ],
+        "codeword_hamming": 0,
+        "analytic_overlap2": 1.0,
+        "analytic_p0": 1.0,
+        "estimated_p0": 1.0,
+        "shots": 4096,
+        "decision_equal": true,
+        "threshold": 0.85,
+        "ground_truth_equal": true
+      }
+    },
+    {
+      "case": "aspirin vs aspirin amide analog (terminal O -> N, one character)",
+      "reference_smiles": "CC(=O)Oc1ccccc1C(=O)O",
+      "candidate_smiles": "CC(=O)Oc1ccccc1C(=O)N",
+      "ground_truth_equal": false,
+      "classical": {
+        "fingerprint_ref": 1075854184438253216,
+        "fingerprint_cand": 1075854184438253215,
+        "fingerprint_match": false,
+        "rope_equal": false,
+        "ground_truth_equal": false
+      },
+      "quantum": {
+        "codeword_ref": [
+          0,
+          9,
+          0,
+          14,
+          14,
+          4,
+          0,
+          0,
+          10,
+          9,
+          0,
+          14
+        ],
+        "codeword_cand": [
+          0,
+          9,
+          0,
+          14,
+          14,
+          4,
+          0,
+          0,
+          10,
+          9,
+          0,
+          13
+        ],
+        "codeword_hamming": 1,
+        "analytic_overlap2": 0.9619397662556434,
+        "analytic_p0": 0.9809698831278217,
+        "estimated_p0": 0.98388671875,
+        "shots": 4096,
+        "decision_equal": true,
+        "threshold": 0.85,
+        "ground_truth_equal": false
+      }
+    },
+    {
+      "case": "benzene vs toluene (added methyl)",
+      "reference_smiles": "c1ccccc1",
+      "candidate_smiles": "Cc1ccccc1",
+      "ground_truth_equal": false,
+      "classical": {
+        "fingerprint_ref": 66462845472790700,
+        "fingerprint_cand": 1352430662937827186,
+        "fingerprint_match": false,
+        "rope_equal": false,
+        "ground_truth_equal": false
+      },
+      "quantum": {
+        "codeword_ref": [
+          4,
+          0,
+          2,
+          4,
+          0,
+          4,
+          4,
+          0,
+          4,
+          4,
+          0,
+          2
+        ],
+        "codeword_cand": [
+          4,
+          4,
+          0,
+          2,
+          4,
+          0,
+          4,
+          4,
+          4,
+          4,
+          0,
+          2
+        ],
+        "codeword_hamming": 6,
+        "analytic_overlap2": 0.04553458691207964,
+        "analytic_p0": 0.5227672934560398,
+        "estimated_p0": 0.507080078125,
+        "shots": 4096,
+        "decision_equal": false,
+        "threshold": 0.85,
+        "ground_truth_equal": false
+      }
+    },
+    {
+      "case": "benzene vs pyridine (one ring atom C -> N)",
+      "reference_smiles": "c1ccccc1",
+      "candidate_smiles": "c1ccncc1",
+      "ground_truth_equal": false,
+      "classical": {
+        "fingerprint_ref": 66462845472790700,
+        "fingerprint_cand": 66462845497519701,
+        "fingerprint_match": false,
+        "rope_equal": false,
+        "ground_truth_equal": false
+      },
+      "quantum": {
+        "codeword_ref": [
+          4,
+          0,
+          2,
+          4,
+          0,
+          4,
+          4,
+          0,
+          4,
+          4,
+          0,
+          2
+        ],
+        "codeword_cand": [
+          4,
+          0,
+          2,
+          4,
+          0,
+          4,
+          15,
+          0,
+          4,
+          4,
+          0,
+          2
+        ],
+        "codeword_hamming": 1,
+        "analytic_overlap2": 0.3086582838174548,
+        "analytic_p0": 0.6543291419087274,
+        "estimated_p0": 0.646484375,
+        "shots": 4096,
+        "decision_equal": false,
+        "threshold": 0.85,
+        "ground_truth_equal": false
+      }
+    },
+    {
+      "case": "benzene vs cyclohexane (aromatic vs saturated ring)",
+      "reference_smiles": "c1ccccc1",
+      "candidate_smiles": "C1CCCCC1",
+      "ground_truth_equal": false,
+      "classical": {
+        "fingerprint_ref": 66462845472790700,
+        "fingerprint_cand": 45275597531806188,
+        "fingerprint_match": false,
+        "rope_equal": false,
+        "ground_truth_equal": false
+      },
+      "quantum": {
+        "codeword_ref": [
+          4,
+          0,
+          2,
+          4,
+          0,
+          4,
+          4,
+          0,
+          4,
+          4,
+          0,
+          2
+        ],
+        "codeword_cand": [
+          4,
+          0,
+          2,
+          4,
+          0,
+          4,
+          4,
+          0,
+          4,
+          4,
+          0,
+          2
+        ],
+        "codeword_hamming": 0,
+        "analytic_overlap2": 1.0,
+        "analytic_p0": 1.0,
+        "estimated_p0": 1.0,
+        "shots": 4096,
+        "decision_equal": true,
+        "threshold": 0.85,
+        "ground_truth_equal": false
+      }
+    }
+  ]
+}

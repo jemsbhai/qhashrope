@@ -7,3 +7,6 @@ Applications of the qhashrope pack-and-verify prototype, one folder each. Every 
 3. [replica-equality](replica-equality/) - Replica equality over constrained links: verify large copies match by exchanging O(log n) qubits.
 4. [record-linkage](record-linkage/) - Record linkage without disclosure: two institutions check whether they hold the same record, learning only the answer.
 5. [superdense-packing](superdense-packing/) - Entanglement-assisted dense packing: send later data at 2 bits per qubit over entanglement shared in advance.
+6. [molecular-identity](molecular-identity/) - Molecular identity verification: confirm a compound record (canonical SMILES/InChI) is identical across sites without distributing the structure library. Includes a measured chemistry demo.
+7. [compound-library-dedup](compound-library-dedup/) - Compound library deduplication without disclosure: two organizations find their library overlap by equality only, without pooling proprietary structures.
+8. [quantum-chemistry-result-verification](quantum-chemistry-result-verification/) - Quantum chemistry result verification: check that two computations on different machines or in different labs produced identical output records.
