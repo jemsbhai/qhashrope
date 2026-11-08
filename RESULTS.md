@@ -358,3 +358,7 @@ benzene vs cyclohexane, and an independent known-identical control.
   12-bit messages coincide remain indistinguishable to the quantum
   stage in every variant, monolithic or decomposed. The classical
   hashrope stage remains the exact check.
+
+## Hardware run, 2026-11-08
+
+The two-server per-bit protocol was run on IBM Quantum hardware (**ibm_marrakesh**): 3 of 3 pair decisions correct under the Golay radius-3 rule, 0 bit decision errors in total. Full per-bit values, job IDs and the exploratory monolithic 49-qubit job are in `HARDWARE_RESULTS.md` (`hardware_results.json`, `hardware_jobs.json`).
