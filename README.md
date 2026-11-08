@@ -4,6 +4,10 @@
 
 This repository is the research artifact for that construction: the implementation, the measured failures that shaped it, and the fixes, with raw outputs. It was built for the Qiskit Fall Fest 2026 hackathon at Florida Tech and is the basis for planned research papers. The classical components are the author's published packages, hashrope and multispecqr, used unmodified.
 
+## In plain terms
+
+Two sites hold a large record and want one bit: identical, or not, without sending the record. qhashrope fingerprints each record (12 block hashes from hashrope, folded to a 12-bit message, expanded by the Golay (24,12,8) code into a 24-qubit fingerprint), packs classical data with superdense coding at 2 bits per transmitted qubit, and compares fingerprints with SWAP tests. The first encoding let distinct molecules collide: benzene and cyclohexane produced identical fingerprints. The error-corrected encoding removed that failure class, because any two distinct fingerprints now differ in at least 8 of 24 positions. Under device noise the single 24-qubit test degrades to the random floor, so verification is split into 24 per-bit tests whose binary decisions are recombined with the Golay decoding rule. That protocol went 13/13 in simulation at p = 0.02 and 3/3 with zero bit errors on ibm_marrakesh, where the monolithic test read 0.4814 on an identical pair. The current fingerprint is a basis state, so it carries no quantum communication advantage yet; the phase fingerprint is the route to one (see Limitations).
+
 ## Results
 
 All numbers below are measured; the files behind each row are linked at the end of the table.
