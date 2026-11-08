@@ -31,8 +31,9 @@ RESULTS.md. Simulator: qv.default_sim (MPS). Shots: 4096 per circuit.
 
 import json
 import sys
+from pathlib import Path
 
-sys.path.insert(0, "/home/hatch/workspace/qhashrope-proto")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from qiskit import QuantumCircuit, transpile
 
@@ -142,7 +143,7 @@ def main():
     for r in results["pairs"] + [results["control"]]:
         r["R4_relative_equal"] = r["product_global_p0"] >= rel_thresh
 
-    with open("/tmp/two_server_results.json", "w") as fh:
+    with open(Path(__file__).with_name("two_server_results.json"), "w") as fh:
         json.dump(results, fh, indent=2)
 
     print(json.dumps(results["circuits"], indent=2))

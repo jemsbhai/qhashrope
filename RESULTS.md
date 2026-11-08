@@ -82,8 +82,8 @@ across pairs: 0.018 (≈2σ of shot noise at 4096 shots).
 Caveat observed across runs: one 1-mutation pair has analytic P(0) = 0.8457,
 within shot noise of the 0.85 threshold; it classified correctly in the final
 run and incorrectly in an earlier run (17/18). Cause: its codewords differ in
-one block by one symbol step, so the fingerprints genuinely overlap at
-cos²(π/16) in that coordinate. The block-hash codeword has no guaranteed
+one block by three symbol steps, so the fingerprints genuinely overlap at
+cos²(3π/16) in that coordinate. The block-hash codeword has no guaranteed
 minimum distance; the Ablayev-Vasiliev construction assumes an error-
 correcting code with relative distance δ. Dropping a real ECC (e.g.
 Reed–Solomon over the symbols) in front of the angle encoding is the known
