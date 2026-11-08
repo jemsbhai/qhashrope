@@ -191,6 +191,25 @@
         0
       ],
       "codeword_hamming": 12
+    },
+    {
+      "pair_id": "A_dna_identical",
+      "label": "EXPLORATORY: monolithic 49-qubit SWAP test, DNA identical pair",
+      "kind": "monolithic_swap_test_exploratory",
+      "job_id": "dbo8uudt7fqc73ako33g",
+      "n_circuits": 1,
+      "transpiled_depth": 1026,
+      "transpiled_ops": {
+        "sx": 868,
+        "rz": 584,
+        "cz": 495,
+        "x": 9,
+        "measure": 1
+      },
+      "reference": "TTACGCCAGACCTAGCGCCGCTAACCATATCCCATTATTCCATCAAGGGGTAGGGAACCCCTTCGCTAAAGGGATTGCAACTGAGAGGATTGAAAC",
+      "candidate": "TTACGCCAGACCTAGCGCCGCTAACCATATCCCATTATTCCATCAAGGGGTAGGGAACCCCTTCGCTAAAGGGATTGCAACTGAGAGGATTGAAAC",
+      "ground_truth_equal": true,
+      "codeword_hamming": 0
     }
   ]
 }
