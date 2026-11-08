@@ -83,3 +83,26 @@ third-decimal coordinate change in the demo reads as different, which
 is correct for exact equality; a deployment must state the rounding at
 which two results count as the same result, in the record format
 itself. (4) Hardware run of the per-bit two-server form.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Producing lab (cluster A)<br/>holds the original computation result record"] --> FA["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    B["Rerun site or reproducibility checker<br/>holds the recomputed result record"] --> FB["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    FA -->|24 fingerprint qubits| R["Referee<br/>SWAP test on the two fingerprints"]
+    FB -->|24 fingerprint qubits| R
+    R --> D{"Estimated P(0) >= 0.75?"}
+    D -->|yes| E["Decision: records equal"]
+    D -->|no| N["Decision: records differ"]
+    E --> O["Only the equality bit is returned;<br/>the referee sees neither result record"]
+    N --> O
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It prints a per-pair verdict table; the verified summary line from the 2026-11-08 run is:
+
+```
+SUMMARY: 3/3 pairs PASS (classical 3/3, quantum 3/3)
+```

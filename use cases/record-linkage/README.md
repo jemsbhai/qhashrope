@@ -21,3 +21,26 @@ AerSimulator (matrix_product_state), 4096 shots per pair, global threshold
 | a different person | 0.4993 | differ |
 
 Classical hashrope agrees on all three pairs (3/3); quantum 3/3.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Institution A (for example a hospital)<br/>holds its copy of the person record"] --> FA["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    B["Institution B<br/>holds its copy of the person record"] --> FB["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    FA -->|24 fingerprint qubits| R["Referee<br/>SWAP test on the two fingerprints"]
+    FB -->|24 fingerprint qubits| R
+    R --> D{"Estimated P(0) >= 0.75?"}
+    D -->|yes| E["Decision: records equal"]
+    D -->|no| N["Decision: records differ"]
+    E --> O["Only the equality bit is returned;<br/>the records are never pooled; equality is the only disclosure"]
+    N --> O
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It prints a per-pair verdict table; the verified summary line from the 2026-11-08 run is:
+
+```
+SUMMARY: 3/3 pairs PASS (classical 3/3, quantum 3/3)
+```

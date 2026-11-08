@@ -81,3 +81,26 @@ and salt forms, which decide more real dedup outcomes than the
 equality primitive does. (4) A batch two-server run under noise at
 hundreds of pairs, to measure the decision rule's behaviour as a
 filter rather than on single pairs.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Library owner A (pharma company)<br/>holds proprietary library A, fingerprints each entry locally"] --> FA["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    B["Library owner B (CRO or partner)<br/>holds proprietary library B, fingerprints each entry locally"] --> FB["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    FA -->|24 fingerprint qubits| R["Referee<br/>SWAP test on the two fingerprints"]
+    FB -->|24 fingerprint qubits| R
+    R --> D{"Estimated P(0) >= 0.75?"}
+    D -->|yes| E["Decision: records equal"]
+    D -->|no| N["Decision: records differ"]
+    E --> O["Only the equality bit is returned;<br/>the referee runs one SWAP test per cross pair (64 in the demo); only the overlap is learned"]
+    N --> O
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It prints a per-pair verdict table; the verified summary line from the 2026-11-08 run is:
+
+```
+SUMMARY: 64/64 cross pairs PASS (classical 64/64, quantum 64/64), match set exact: True
+```

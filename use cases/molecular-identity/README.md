@@ -117,3 +117,26 @@ message fold for production use; 2^-12 per-pair collision probability
 is a demo parameter, not a registry parameter. (4) Hardware run of the
 per-bit two-server form, whose 3-qubit circuits are the realistic
 near-term target.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Checking site (QC lab, satellite lab, distributor)<br/>holds its copy of the canonical SMILES record"] --> FA["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    B["Central compound registry<br/>holds the reference entry for the compound"] --> FB["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    FA -->|24 fingerprint qubits| R["Referee<br/>SWAP test on the two fingerprints"]
+    FB -->|24 fingerprint qubits| R
+    R --> D{"Estimated P(0) >= 0.75?"}
+    D -->|yes| E["Decision: records equal"]
+    D -->|no| N["Decision: records differ"]
+    E --> O["Only the equality bit is returned;<br/>the structure library is never distributed to the checker"]
+    N --> O
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It prints a per-pair verdict table; the verified summary line from the 2026-11-08 run is:
+
+```
+SUMMARY: 5/5 pairs PASS (classical 5/5, quantum 5/5)
+```

@@ -22,3 +22,26 @@ section). Payload: synthetic checkpoint record strings (~3.2 KB).
 | a different checkpoint | 2,720 | 0.4985 | differ |
 
 Classical hashrope agrees on all three pairs (3/3); quantum 3/3.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Artifact holder (deployment side)<br/>holds the deployed checkpoint or dataset copy"] --> FA["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    B["Certifier<br/>holds the certified artifact that was approved"] --> FB["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    FA -->|24 fingerprint qubits| R["Referee<br/>SWAP test on the two fingerprints"]
+    FB -->|24 fingerprint qubits| R
+    R --> D{"Estimated P(0) >= 0.75?"}
+    D -->|yes| E["Decision: records equal"]
+    D -->|no| N["Decision: records differ"]
+    E --> O["Only the equality bit is returned;<br/>the gigabyte-scale artifact itself is never re-transferred"]
+    N --> O
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It prints a per-pair verdict table; the verified summary line from the 2026-11-08 run is:
+
+```
+SUMMARY: 3/3 pairs PASS (classical 3/3, quantum 3/3)
+```

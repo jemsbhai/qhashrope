@@ -9,6 +9,33 @@ A combined pack-and-verify prototype that joins two published classical systems 
 
 Both classical packages (multispecqr and hashrope, by the same author) are used unmodified. Full methods, environment, and analysis: [RESULTS.md](RESULTS.md).
 
+## How the shared pipeline works
+
+Every use case in `use cases/` runs the same pipeline; only the record and the parties change.
+
+```mermaid
+flowchart LR
+    REC["Record<br/>any byte string, any size"] --> BLK["Split into 12 blocks"]
+    BLK --> HASH["Position-seeded block hashes<br/>hashrope fingerprint of block j,<br/>seeded by j, taken mod 4096"]
+    HASH --> FOLD["Odd-weight fold<br/>12-bit message"]
+    FOLD --> GOL["Golay (24,12,8) encoding<br/>24-bit fingerprint codeword,<br/>minimum distance 8"]
+    GOL --> PREP["Fingerprint state prepared<br/>one qubit per codeword bit"]
+    PREP --> SWAP["Single-referee form:<br/>one SWAP test"]
+    PREP --> BITS["Two-server form: 24 per-bit SWAP tests<br/>split across two non-colluding referees"]
+    SWAP --> D1{"P(0) >= 0.75?"}
+    BITS --> R3["Golay radius-3 recombination<br/>count decided-differ bits"]
+    R3 --> D2{"Decided-differ bits <= 3?"}
+    D1 -->|yes| EQ["Decision: equal"]
+    D1 -->|no| NE["Decision: differ"]
+    D2 -->|yes| EQ
+    D2 -->|no| NE
+    REC -.-> CLS["Classical fallback and ground truth:<br/>hashrope exact rope equality<br/>on the full record"]
+    CLS --> EQ
+    CLS --> NE
+```
+
+The pack side of the prototype is separate from this verify pipeline: classical MultiSpecQR multiplexing, or superdense coding at 2 bits per transmitted qubit over pre-shared Bell pairs (see `use cases/superdense-packing/`).
+
 ## Results (simulator, 2026-11-07; encoding and noise fixes 2026-11-08)
 
 - Classical pack: 3 payloads into one 33x33 RGB image, decoded 3/3 exact.

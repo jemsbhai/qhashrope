@@ -23,3 +23,26 @@ AerSimulator (matrix_product_state), 4096 shots per pair, global threshold
 Classical hashrope agrees on all three pairs (3/3); quantum 3/3. The
 position of the differing byte does not matter: position-seeded block
 hashing feeds the changed block into the message fold wherever it sits.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Replica holder A<br/>holds one copy of the ledger record"] --> FA["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    B["Replica holder B<br/>holds the second copy of the record"] --> FB["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    FA -->|24 fingerprint qubits| R["Referee<br/>SWAP test on the two fingerprints"]
+    FB -->|24 fingerprint qubits| R
+    R --> D{"Estimated P(0) >= 0.75?"}
+    D -->|yes| E["Decision: records equal"]
+    D -->|no| N["Decision: records differ"]
+    E --> O["Only the equality bit is returned;<br/>the record itself never crosses the constrained link"]
+    N --> O
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It prints a per-pair verdict table; the verified summary line from the 2026-11-08 run is:
+
+```
+SUMMARY: 3/3 pairs PASS (classical 3/3, quantum 3/3)
+```

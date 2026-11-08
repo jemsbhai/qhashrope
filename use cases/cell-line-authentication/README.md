@@ -30,3 +30,31 @@ monolithic P(0) = 0.7634, called equal this run; per-bit P(0) values in
 As in the other folders, the monolithic identical-pair value at this
 noise level is a run-dependent borderline quantity; the per-bit
 decisions are not.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Research lab<br/>holds the STR profile of its sample"] --> FA["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    B["Cell bank<br/>holds the reference STR profile for the line"] --> FB["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    FA -->|fingerprint qubits, bit subset 1| S1["Referee 1 (non-colluding)<br/>per-bit SWAP tests, 3 qubits each"]
+    FB -->|fingerprint qubits, bit subset 1| S1
+    FA -->|fingerprint qubits, bit subset 2| S2["Referee 2 (non-colluding)<br/>per-bit SWAP tests, 3 qubits each"]
+    FB -->|fingerprint qubits, bit subset 2| S2
+    S1 --> C["Client recombination<br/>count bits decided differ"]
+    S2 --> C
+    C --> D{"Decided-differ bits <= 3<br/>(Golay radius-3 rule)?"}
+    D -->|yes| E["Decision: records equal"]
+    D -->|no| N["Decision: records differ"]
+    E --> O["Only the equality bit is returned;<br/>neither the sample profile nor the reference collection is pooled"]
+    N --> O
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It prints a per-pair verdict table; the verified summary line from the 2026-11-08 run is:
+
+```
+two-server (identical pair, p=0.02): monolithic P(0)=0.7527, decided-differ bits=0/24, verdict=equal (PASS)
+SUMMARY: 3/3 pairs PASS (classical 3/3, quantum 3/3)
+```

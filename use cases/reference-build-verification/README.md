@@ -31,3 +31,31 @@ monolithic P(0) = 0.7236, called differ (wrong); per-bit P(0) values in
 (correct). The monolithic failure on an identical pair at this noise
 level is the stage-5 result from the root RESULTS.md, reproduced here
 on a release-record payload.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Analysis group A<br/>holds its pipeline's build and annotation release record"] --> FA["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    B["Analysis group B<br/>holds its pipeline's build and annotation release record"] --> FB["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    FA -->|fingerprint qubits, bit subset 1| S1["Referee 1 (non-colluding)<br/>per-bit SWAP tests, 3 qubits each"]
+    FB -->|fingerprint qubits, bit subset 1| S1
+    FA -->|fingerprint qubits, bit subset 2| S2["Referee 2 (non-colluding)<br/>per-bit SWAP tests, 3 qubits each"]
+    FB -->|fingerprint qubits, bit subset 2| S2
+    S1 --> C["Client recombination<br/>count bits decided differ"]
+    S2 --> C
+    C --> D{"Decided-differ bits <= 3<br/>(Golay radius-3 rule)?"}
+    D -->|yes| E["Decision: records equal"]
+    D -->|no| N["Decision: records differ"]
+    E --> O["Only the equality bit is returned;<br/>the check runs at pipeline start, before results are compared"]
+    N --> O
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It prints a per-pair verdict table; the verified summary line from the 2026-11-08 run is:
+
+```
+two-server (identical pair, p=0.02): monolithic P(0)=0.7327, decided-differ bits=0/24, verdict=equal (PASS)
+SUMMARY: 3/3 pairs PASS (classical 3/3, quantum 3/3)
+```

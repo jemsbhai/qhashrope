@@ -23,3 +23,23 @@ pairs), 1024 shots per trial, AerSimulator with the stated noise model.
 The pack stage is unchanged by the 2026-11-08 fingerprint fix (the fix
 concerns the verify stage); these are fresh runs of the same protocol
 reported in the root RESULTS.md.
+
+## How it works
+
+```mermaid
+flowchart LR
+    PRE["Advance window (link cheap or rendezvous):<br/>4 Bell pairs shared between sender and receiver"]
+    S["Sender<br/>8 payload bits"] --> ENC["Encode: apply X and Z to the sender's<br/>4 qubits, 2 bits per Bell pair"]
+    PRE --> ENC
+    ENC -->|4 transmitted qubits in the contact window| DEC["Receiver: Bell-basis decode<br/>CX, H, then measure all 8 qubits"]
+    PRE --> DEC
+    DEC --> OUT["8 payload bits recovered<br/>2 bits per transmitted qubit"]
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It round-trips six 8-bit payloads and compares decoded bits with sent bits; the verified summary line from the 2026-11-08 run is:
+
+```
+SUMMARY: 6/6 payloads round-tripped exactly (48/48 bits)
+```

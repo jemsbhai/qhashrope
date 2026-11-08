@@ -80,3 +80,30 @@ variant on hardware: the per-bit circuits are 3 qubits and shallow, so
 they are the natural first hardware target. (4) A defined referee
 non-collusion arrangement for the clinic and biobank setting, since the
 privacy reading depends on it.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["Clinic or biobank (site A)<br/>holds its sequence record"] --> FA["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    B["Second site (clinic or biobank)<br/>holds the record to check against"] --> FB["Fingerprint locally<br/>position-seeded block hashes<br/>Golay (24,12,8) codeword"]
+    FA -->|fingerprint qubits, bit subset 1| S1["Referee 1 (non-colluding)<br/>per-bit SWAP tests, 3 qubits each"]
+    FB -->|fingerprint qubits, bit subset 1| S1
+    FA -->|fingerprint qubits, bit subset 2| S2["Referee 2 (non-colluding)<br/>per-bit SWAP tests, 3 qubits each"]
+    FB -->|fingerprint qubits, bit subset 2| S2
+    S1 --> C["Client recombination<br/>count bits decided differ"]
+    S2 --> C
+    C --> D{"Decided-differ bits <= 3<br/>(Golay radius-3 rule)?"}
+    D -->|yes| E["Decision: records equal"]
+    D -->|no| N["Decision: records differ"]
+    E --> O["Only the equality bit is returned;<br/>the sequence itself never leaves either site"]
+    N --> O
+```
+
+## Run output
+
+Run `python demo.py` from this folder with the project venv. It prints a per-pair verdict table; the verified summary line from the 2026-11-08 run is:
+
+```
+SUMMARY: 12/12 pairs PASS (classical 12/12, quantum 12/12)
+```

@@ -6,20 +6,20 @@ Applications of the qhashrope pack-and-verify prototype, one folder each. Every 
 
 As of 2026-11-08 the fingerprint uses the fixed encoding (position-seeded block hashing, Golay (24,12,8) error-correcting expansion, one global decision threshold of 0.75), and a two-server variant (per-bit SWAP tests split across two non-colluding referees, Golay radius-3 decision recombination) is measured at root level for the noisy setting. Every folder carries a runnable demo and a `results.json` with measured values from that pipeline. See the "Encoding fix, 2026-11-08" and "Two-server noise fix, 2026-11-08" sections of the root RESULTS.md.
 
-1. [genomic-identity-verification](genomic-identity-verification/) - Private genomic identity verification: prove two sequence records match without revealing the sequence.
-2. [model-dataset-integrity](model-dataset-integrity/) - Model and dataset integrity attestation: prove a deployed artifact is bit-identical to the certified one.
-3. [replica-equality](replica-equality/) - Replica equality over constrained links: verify large copies match by exchanging O(log n) qubits.
-4. [record-linkage](record-linkage/) - Record linkage without disclosure: two institutions check whether they hold the same record, learning only the answer.
-5. [superdense-packing](superdense-packing/) - Entanglement-assisted dense packing: send later data at 2 bits per qubit over entanglement shared in advance.
-6. [molecular-identity](molecular-identity/) - Molecular identity verification: confirm a compound record (canonical SMILES/InChI) is identical across sites without distributing the structure library.
-7. [compound-library-dedup](compound-library-dedup/) - Compound library deduplication without disclosure: two organizations find their library overlap by equality only, without pooling proprietary structures.
-8. [quantum-chemistry-result-verification](quantum-chemistry-result-verification/) - Quantum chemistry result verification: check that two computations on different machines or in different labs produced identical output records.
-9. [reaction-protocol-verification](reaction-protocol-verification/) - Reaction protocol verification: two labs confirm they hold the identical encoded experimental protocol before comparing results.
-10. [reference-standard-verification](reference-standard-verification/) - Reference standard verification: a lab confirms its copy of a certified reference record matches the issuing library's master record, without the library being distributed.
-11. [formulation-identity](formulation-identity/) - Formulation identity: a contract manufacturer confirms it holds the qualified formulation record, learning nothing about the formulation beyond the equality answer.
-12. [cell-line-authentication](cell-line-authentication/) - Cell line authentication: a lab checks a sample's STR marker profile against the reference profile held by a cell bank.
-13. [reference-build-verification](reference-build-verification/) - Reference build verification: two labs confirm they are analysing against the identical reference genome build and annotation release.
-14. [outbreak-strain-matching](outbreak-strain-matching/) - Outbreak strain matching: surveillance labs check whether an isolate record matches a tracked outbreak strain record without pooling sequence data.
+1. [genomic-identity-verification](genomic-identity-verification/) - Private genomic identity verification: prove two sequence records match without revealing the sequence. Demo script: `demo.py` in the folder.
+2. [model-dataset-integrity](model-dataset-integrity/) - Model and dataset integrity attestation: prove a deployed artifact is bit-identical to the certified one. Demo script: `demo.py` in the folder.
+3. [replica-equality](replica-equality/) - Replica equality over constrained links: verify large copies match by exchanging O(log n) qubits. Demo script: `demo.py` in the folder.
+4. [record-linkage](record-linkage/) - Record linkage without disclosure: two institutions check whether they hold the same record, learning only the answer. Demo script: `demo.py` in the folder.
+5. [superdense-packing](superdense-packing/) - Entanglement-assisted dense packing: send later data at 2 bits per qubit over entanglement shared in advance. Demo script: `demo.py` in the folder.
+6. [molecular-identity](molecular-identity/) - Molecular identity verification: confirm a compound record (canonical SMILES/InChI) is identical across sites without distributing the structure library. Demo script: `demo.py` in the folder.
+7. [compound-library-dedup](compound-library-dedup/) - Compound library deduplication without disclosure: two organizations find their library overlap by equality only, without pooling proprietary structures. Demo script: `demo.py` in the folder.
+8. [quantum-chemistry-result-verification](quantum-chemistry-result-verification/) - Quantum chemistry result verification: check that two computations on different machines or in different labs produced identical output records. Demo script: `demo.py` in the folder.
+9. [reaction-protocol-verification](reaction-protocol-verification/) - Reaction protocol verification: two labs confirm they hold the identical encoded experimental protocol before comparing results. Demo script: `demo.py` in the folder.
+10. [reference-standard-verification](reference-standard-verification/) - Reference standard verification: a lab confirms its copy of a certified reference record matches the issuing library's master record, without the library being distributed. Demo script: `demo.py` in the folder.
+11. [formulation-identity](formulation-identity/) - Formulation identity: a contract manufacturer confirms it holds the qualified formulation record, learning nothing about the formulation beyond the equality answer. Demo script: `demo.py` in the folder.
+12. [cell-line-authentication](cell-line-authentication/) - Cell line authentication: a lab checks a sample's STR marker profile against the reference profile held by a cell bank. Demo script: `demo.py` in the folder.
+13. [reference-build-verification](reference-build-verification/) - Reference build verification: two labs confirm they are analysing against the identical reference genome build and annotation release. Demo script: `demo.py` in the folder.
+14. [outbreak-strain-matching](outbreak-strain-matching/) - Outbreak strain matching: surveillance labs check whether an isolate record matches a tracked outbreak strain record without pooling sequence data. Demo script: `demo.py` in the folder.
 
 ## Comparative summary
 
