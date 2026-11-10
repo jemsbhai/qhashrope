@@ -359,6 +359,16 @@ benzene vs cyclohexane, and an independent known-identical control.
   recombination under the Golay decoding rule is the fix. (A relative
   control-pair rule also reached 13/13, but on a thin margin of ~0.04.)
 
+**Re-verified 2026-11-10** from a clean copy of this repository at HEAD
+a5c8b30 (`two_server_experiment.py`, Qiskit 2.6.2, Aer 0.18.2, same
+noise model, 4096 shots per circuit): monolithic 8/13 with the five
+identical pairs at 0.7268-0.7385, product recombination 8/13, per-bit
+Golay radius-3 recombination 13/13, zero bit-decision errors in 312
+bit tests, and decided-differ counts equal to the true codeword
+Hamming distances in every case. Every decision field matches
+`two_server_results.json` exactly; only the analog product values
+move, at the third decimal, as expected from shot noise.
+
 ### Caveats
 
 - **Cost: 24 circuits per comparison instead of 1**, and 24x the shots
